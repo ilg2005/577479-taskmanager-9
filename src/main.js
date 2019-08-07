@@ -467,3 +467,10 @@ const getCardEditFormMarkup = () => (`
             </form>
           </article>
 `);
+
+const renderElements = (element, markup, renderingCount = 1) => {
+  for (let i = 0; i < renderingCount; i++) {
+    element.insertAdjacentHTML(`beforeend`, markup);
+  }
+};
+
