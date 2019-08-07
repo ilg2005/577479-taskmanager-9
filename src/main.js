@@ -127,7 +127,6 @@ const getTaskboardContainerMarkup = () => (`
 `);
 
 const getCardMarkup = () => (`
-        <div class="board__tasks">
           <article class="card card--black">
             <div class="card__form">
               <div class="card__inner">
@@ -193,7 +192,6 @@ const getCardMarkup = () => (`
               </div>
             </div>
           </article>
-        </div>
 `);
 
 const getLoadMoreBtnMarkup = () => (`
