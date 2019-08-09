@@ -1,7 +1,3 @@
-const a = `Check`;
-console.log(`Hello World`);
-
-/*
 const getMenuMarkup = () => (`
         <section class="control__btn-wrap">
           <input
@@ -492,4 +488,3 @@ renderElement(tasksContainerElement, getCardEditFormMarkup());
 const TASK_COUNT_TO_RENDER = 3;
 renderElement(tasksContainerElement, getCardMarkup(), TASK_COUNT_TO_RENDER);
 renderElement(taskboardContainerElement, getLoadMoreBtnMarkup());
-*/
