@@ -7,7 +7,7 @@ import {getCardMarkup} from './components/card.js';
 import {getLoadMoreBtnMarkup} from './components/load-more-btn.js';
 
 const renderElement = (element, markup, renderingCount = 1) => {
-  for (let i = 1; i <= renderingCount; i++) {
+  for (let i = 0; i < renderingCount; i++) {
     element.insertAdjacentHTML(`beforeend`, markup);
   }
 };
