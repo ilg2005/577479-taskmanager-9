@@ -32,7 +32,7 @@ const TASKS = [];
 for (let i = 0; i < TASK_COUNT_TO_RENDER; i++) {
   let task = getData();
   TASKS.push(task);
-  renderElement(tasksContainerElement, getCardMarkup(task.color, task.description, task.dueDate, task.tags));
+  renderElement(tasksContainerElement, getCardMarkup(task.color, task.repeatingDays, task.description, task.dueDate, task.tags));
 }
 
 renderElement(taskboardContainerElement, getLoadMoreBtnMarkup());
