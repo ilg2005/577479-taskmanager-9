@@ -18,7 +18,39 @@ const menuContainerElement = document.querySelector(`.main__control`);
 
 renderElement(menuContainerElement, getMenuMarkup());
 renderElement(mainElement, getSearchFieldMarkup());
-renderElement(mainElement, getFiltersMarkup());
+
+const filters = [
+  {
+    title: `all`,
+    count: 13
+  },
+  {
+    title: `overdue`,
+    count: 0
+  },
+  {
+    title: `today`,
+    count: 0
+  },
+  {
+    title: `favorites`,
+    count: 0
+  },
+  {
+    title: `repeating`,
+    count: 0
+  },
+  {
+    title: `tags`,
+    count: 0
+  },
+  {
+    title: `archive`,
+    count: 0
+  },
+];
+renderElement(mainElement, getFiltersMarkup(filters));
+
 renderElement(mainElement, getTaskboardContainerMarkup());
 
 const taskboardContainerElement = document.querySelector(`.board`);
