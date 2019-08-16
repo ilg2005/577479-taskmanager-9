@@ -1,8 +1,10 @@
-import {data} from "./data.js";
-import {dateTimeFormatted} from "./date-time-format.js";
+const MONTHS = [`JANUARY`, `FEBRUARY`, `MARCH`, `APRIL`, `MAY`, `JUNE`, `JULY`, `AUGUST`, `SEPTEMBER`, `OCTOBER`, `NOVEMBER`, `DECEMBER`];
 
-export const getCardMarkup = () => (`
-          <article class="card card--${data.color}">
+const getTimePeriod = (hour) => (hour >= 12) ? `PM` : `AM`;
+const getHourIn12hFormat = (hour) => (hour >= 12) ? (hour - 12) : hour;
+
+export const getCardMarkup = (color, description, dueDate, tags) => (`
+          <article class="card card--${color}">
             <div class="card__form">
               <div class="card__inner">
                 <div class="card__control">
@@ -27,7 +29,7 @@ export const getCardMarkup = () => (`
                 </div>
 
                 <div class="card__textarea-wrap">
-                  <p class="card__text">${data.description}</p>
+                  <p class="card__text">${description}</p>
                 </div>
 
                 <div class="card__settings">
@@ -35,15 +37,15 @@ export const getCardMarkup = () => (`
                     <div class="card__dates">
                       <div class="card__date-deadline">
                         <p class="card__input-deadline-wrap">
-                          <span class="card__date">${data.dueDate.getDate()} ${dateTimeFormatted.month}</span>
-                          <span class="card__time">${dateTimeFormatted.hours}:${dateTimeFormatted.minutes} ${dateTimeFormatted.period}</span>
+                          <span class="card__date">${dueDate.getDate()} ${MONTHS[dueDate.getMonth()]}</span>
+                          <span class="card__time">${getHourIn12hFormat(dueDate.getHours())}:${dueDate.getMinutes()} ${getTimePeriod(dueDate.getHours())}</span>
                         </p>
                       </div>
                     </div>
 
                     <div class="card__hashtag">
                       <div class="card__hashtag-list">
-                        ${Array.from(data.tags).map((tag) => `<span class="card__hashtag-inner">
+                        ${Array.from(tags).map((tag) => `<span class="card__hashtag-inner">
                           <span class="card__hashtag-name">
                             #${tag}
                           </span>
