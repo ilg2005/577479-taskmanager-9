@@ -5,7 +5,6 @@ import {getTaskboardContainerMarkup} from "./components/taskboard-container.js";
 import {getCardEditFormMarkup} from "./components/card-edit-form.js";
 import {getCardMarkup} from "./components/card.js";
 import {getLoadMoreBtnMarkup} from "./components/load-more-btn.js";
-import {data} from "./components/data";
 
 const renderElement = (element, markup, renderingCount = 1) => {
   for (let i = 0; i < renderingCount; i++) {

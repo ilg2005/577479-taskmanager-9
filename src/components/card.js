@@ -1,5 +1,8 @@
+import {data} from "./data.js";
+import {dateTimeFormatted} from "./date-time-format.js";
+
 export const getCardMarkup = () => (`
-          <article class="card card--black">
+          <article class="card card--${data.color}">
             <div class="card__form">
               <div class="card__inner">
                 <div class="card__control">
@@ -24,7 +27,7 @@ export const getCardMarkup = () => (`
                 </div>
 
                 <div class="card__textarea-wrap">
-                  <p class="card__text">Example default task with default color.</p>
+                  <p class="card__text">${data.description}</p>
                 </div>
 
                 <div class="card__settings">
@@ -32,8 +35,8 @@ export const getCardMarkup = () => (`
                     <div class="card__dates">
                       <div class="card__date-deadline">
                         <p class="card__input-deadline-wrap">
-                          <span class="card__date">23 September</span>
-                          <span class="card__time">11:15 PM</span>
+                          <span class="card__date">${data.dueDate.getDate()} ${dateTimeFormatted.month}</span>
+                          <span class="card__time">${dateTimeFormatted.hours}:${dateTimeFormatted.minutes} ${dateTimeFormatted.period}</span>
                         </p>
                       </div>
                     </div>
