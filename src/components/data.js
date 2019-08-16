@@ -36,7 +36,7 @@ const getRepeatingDaysObject = (weekDays) => {
   return repeatingDays;
 };
 
-const data = {
+export const data = {
   description: getRandomElementFromArray(DESCRIPTION_LINES),
   dueDate: new Date(getRandomInRange(weekBehindNow, weekAheadNow)),
   tags: getTagsSet(TAGS, MIN_TAGS_NUMBER, MAX_TAGS_NUMBER),
@@ -45,7 +45,4 @@ const data = {
   isFavorite: Boolean(Math.round(Math.random())),
   isArchive: Boolean(Math.round(Math.random())),
 };
-
-console.log(data.color);
-console.log(`ok`);
 
