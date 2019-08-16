@@ -43,25 +43,14 @@ export const getCardMarkup = () => (`
 
                     <div class="card__hashtag">
                       <div class="card__hashtag-list">
-                        <span class="card__hashtag-inner">
+                        ${Array.from(data.tags).map((tag) => `<span class="card__hashtag-inner">
                           <span class="card__hashtag-name">
-                            #todo
+                            #${tag}
                           </span>
-                        </span>
-
-                        <span class="card__hashtag-inner">
-                          <span class="card__hashtag-name">
-                            #personal
-                          </span>
-                        </span>
-
-                        <span class="card__hashtag-inner">
-                          <span class="card__hashtag-name">
-                            #important
-                          </span>
-                        </span>
+                        </span>`).join(``)}
                       </div>
                     </div>
+                    
                   </div>
                 </div>
               </div>
