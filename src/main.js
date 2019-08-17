@@ -2,12 +2,11 @@ import {getMenuMarkup} from "./components/menu.js";
 import {getSearchFieldMarkup} from "./components/searchfield.js";
 import {getFiltersMarkup} from "./components/filter.js";
 import {getTaskboardContainerMarkup} from "./components/taskboard-container.js";
-import {getCardMarkup} from "./components/card.js";
-import {getLoadMoreBtnMarkup} from "./components/load-more-btn.js";
 import {TASKS} from "./components/data.js";
 import {FILTERS} from "./components/filters-count.js";
 import {getCardEditFormMarkup} from "./components/edit-task.js";
-
+import {getCardMarkup} from "./components/card.js";
+import {getLoadMoreBtnMarkup} from "./components/load-more-btn.js";
 
 const renderElement = (element, markup, renderingCount = 1) => {
   for (let i = 0; i < renderingCount; i++) {

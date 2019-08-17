@@ -1,12 +1,7 @@
-const MONTHS = [`JANUARY`, `FEBRUARY`, `MARCH`, `APRIL`, `MAY`, `JUNE`, `JULY`, `AUGUST`, `SEPTEMBER`, `OCTOBER`, `NOVEMBER`, `DECEMBER`];
-
-const getTimePeriod = (hour) => (hour >= 12) ? `PM` : `AM`;
-const getHourIn12hFormat = (hour) => (hour > 12) ? (hour - 12) : hour;
-
-const checkRepeats = (daysWithRepeats) => Object.keys(daysWithRepeats).some((day) => daysWithRepeats[day]) ? `repeat` : ``;
+import {utils} from "./utils.js";
 
 export const getCardEditFormMarkup = (color = `black`, repeatingDays, description, dueDate) => (`
-          <article class="card card--edit card--${color} card--${checkRepeats(repeatingDays)}">
+          <article class="card card--edit card--${color} card--${utils.checkRepeats(repeatingDays)}">
             <form class="card__form" method="get">
               <div class="card__inner">
                 <div class="card__control">
@@ -51,7 +46,7 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
                             type="text"
                             placeholder=""
                             name="date"
-                            value="${dueDate.getDate()} ${MONTHS[dueDate.getMonth()]} ${getHourIn12hFormat(dueDate.getHours())}:${dueDate.getMinutes()} ${getTimePeriod(dueDate.getHours())}"
+                            value="${dueDate.getDate()} ${utils.MONTHS[dueDate.getMonth()]} ${utils.getHourIn12hFormat(dueDate.getHours())}:${dueDate.getMinutes()} ${utils.getTimePeriod(dueDate.getHours())}"
                           />
                         </label>
                       </fieldset>

@@ -1,14 +1,7 @@
-const MONTHS = [`JANUARY`, `FEBRUARY`, `MARCH`, `APRIL`, `MAY`, `JUNE`, `JULY`, `AUGUST`, `SEPTEMBER`, `OCTOBER`, `NOVEMBER`, `DECEMBER`];
-
-const getTimePeriod = (hour) => (hour >= 12) ? `PM` : `AM`;
-const getHourIn12hFormat = (hour) => (hour > 12) ? (hour - 12) : hour;
-
-const checkRepeats = (daysWithRepeats) => Object.keys(daysWithRepeats).some((day) => daysWithRepeats[day]) ? `repeat` : ``;
-
-const checkOverdue = (deadline) => (deadline <= new Date()) ? `card--deadline` : ``;
+import {utils} from "./utils.js";
 
 export const getCardMarkup = (color, repeatingDays, description, dueDate, tags) => (`
-          <article class="card card--${color} card--${checkRepeats(repeatingDays)} ${checkOverdue(dueDate)}">
+          <article class="card card--${color} card--${utils.checkRepeats(repeatingDays)} ${utils.checkOverdue(dueDate)}">
             <div class="card__form">
               <div class="card__inner">
                 <div class="card__control">
@@ -42,8 +35,8 @@ export const getCardMarkup = (color, repeatingDays, description, dueDate, tags) 
                     ${dueDate ? `<div class="card__dates">
                       <div class="card__date-deadline">
                         <p class="card__input-deadline-wrap">
-                          <span class="card__date">${dueDate.getDate()} ${MONTHS[dueDate.getMonth()]}</span>
-                          <span class="card__time">${getHourIn12hFormat(dueDate.getHours())}:${dueDate.getMinutes()} ${getTimePeriod(dueDate.getHours())}</span>
+                          <span class="card__date">${dueDate.getDate()} ${utils.MONTHS[dueDate.getMonth()]}</span>
+                          <span class="card__time">${utils.getHourIn12hFormat(dueDate.getHours())}:${dueDate.getMinutes()} ${utils.getTimePeriod(dueDate.getHours())}</span>
                         </p>
                       </div>
                     </div>` : ``}
