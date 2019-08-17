@@ -1,5 +1,12 @@
-export const getCardEditFormMarkup = () => (`
-          <article class="card card--edit card--yellow card--repeat">
+const MONTHS = [`JANUARY`, `FEBRUARY`, `MARCH`, `APRIL`, `MAY`, `JUNE`, `JULY`, `AUGUST`, `SEPTEMBER`, `OCTOBER`, `NOVEMBER`, `DECEMBER`];
+
+const getTimePeriod = (hour) => (hour >= 12) ? `PM` : `AM`;
+const getHourIn12hFormat = (hour) => (hour > 12) ? (hour - 12) : hour;
+
+const checkRepeats = (daysWithRepeats) => Object.keys(daysWithRepeats).some((day) => daysWithRepeats[day]) ? `repeat` : ``;
+
+export const getCardEditFormMarkup = (color = `black`, repeatingDays, description, dueDate) => (`
+          <article class="card card--edit card--${color} card--${checkRepeats(repeatingDays)}">
             <form class="card__form" method="get">
               <div class="card__inner">
                 <div class="card__control">
@@ -26,7 +33,7 @@ export const getCardEditFormMarkup = () => (`
                       class="card__text"
                       placeholder="Start typing your text here..."
                       name="text"
-                    >Here is a card with filled data</textarea>
+                    >${description}</textarea>
                   </label>
                 </div>
 
@@ -44,7 +51,7 @@ export const getCardEditFormMarkup = () => (`
                             type="text"
                             placeholder=""
                             name="date"
-                            value="23 September 11:15 PM"
+                            value="${dueDate.getDate()} ${MONTHS[dueDate.getMonth()]} ${getHourIn12hFormat(dueDate.getHours())}:${dueDate.getMinutes()} ${getTimePeriod(dueDate.getHours())}"
                           />
                         </label>
                       </fieldset>
