@@ -196,67 +196,20 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
                   <div class="card__colors-inner">
                     <h3 class="card__colors-title">Color</h3>
                     <div class="card__colors-wrap">
+                    ${utils.COLORS.map((colorToRender) => `
                       <input
                         type="radio"
-                        id="color-black-4"
-                        class="card__color-input card__color-input--black visually-hidden"
+                        id="color-${colorToRender}-4"
+                        class="card__color-input card__color-input--${colorToRender} visually-hidden"
                         name="color"
-                        value="black"
+                        value=${colorToRender}
+                        ${colorToRender === color ? `checked` : ``}
                       />
                       <label
-                        for="color-black-4"
-                        class="card__color card__color--black"
+                        for="color-${colorToRender}-4"
+                        class="card__color card__color--${colorToRender}"
                         >black</label
-                      >
-                      <input
-                        type="radio"
-                        id="color-yellow-4"
-                        class="card__color-input card__color-input--yellow visually-hidden"
-                        name="color"
-                        value="yellow"
-                        checked
-                      />
-                      <label
-                        for="color-yellow-4"
-                        class="card__color card__color--yellow"
-                        >yellow</label
-                      >
-                      <input
-                        type="radio"
-                        id="color-blue-4"
-                        class="card__color-input card__color-input--blue visually-hidden"
-                        name="color"
-                        value="blue"
-                      />
-                      <label
-                        for="color-blue-4"
-                        class="card__color card__color--blue"
-                        >blue</label
-                      >
-                      <input
-                        type="radio"
-                        id="color-green-4"
-                        class="card__color-input card__color-input--green visually-hidden"
-                        name="color"
-                        value="green"
-                      />
-                      <label
-                        for="color-green-4"
-                        class="card__color card__color--green"
-                        >green</label
-                      >
-                      <input
-                        type="radio"
-                        id="color-pink-4"
-                        class="card__color-input card__color-input--pink visually-hidden"
-                        name="color"
-                        value="pink"
-                      />
-                      <label
-                        for="color-pink-4"
-                        class="card__color card__color--pink"
-                        >pink</label
-                      >
+                      >`).join(``)}
                     </div>
                   </div>
                 </div>
