@@ -6,10 +6,10 @@ export const getFiltersMarkup = (filtersArray) => (`
           id="filter__${filter.title}"
           class="filter__input visually-hidden"
           name="filter"
-          ${(filter.title === `all`) ? `checked` : `disabled`}
+          ${(filter.count === 0) ? `disabled` : ``}
         />
         <label for="filter__${filter.title}" class="filter__label">
-          ${filter.title} <span class="filter__${filter.title}-count">${filter.count}</span></label
+          ${filter.title} <span class="filter__${filter.title}-count">${filter.count ? filter.count : 0}</span></label
         >`).join(``)}
       </section>
 `);

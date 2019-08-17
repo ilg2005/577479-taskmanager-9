@@ -6,6 +6,7 @@ import {getCardEditFormMarkup} from "./components/card-edit-form.js";
 import {getCardMarkup} from "./components/card.js";
 import {getLoadMoreBtnMarkup} from "./components/load-more-btn.js";
 import {TASKS} from "./components/data.js";
+import {FILTERS} from "./components/filters-count.js";
 
 const renderElement = (element, markup, renderingCount = 1) => {
   for (let i = 0; i < renderingCount; i++) {
@@ -18,40 +19,7 @@ const menuContainerElement = document.querySelector(`.main__control`);
 
 renderElement(menuContainerElement, getMenuMarkup());
 renderElement(mainElement, getSearchFieldMarkup());
-
-const filters = [
-  {
-    title: `all`,
-    count: 13
-  },
-  {
-    title: `overdue`,
-    count: 0
-  },
-  {
-    title: `today`,
-    count: 0
-  },
-  {
-    title: `favorites`,
-    count: 0
-  },
-  {
-    title: `repeating`,
-    count: 0
-  },
-  {
-    title: `tags`,
-    count: 0
-  },
-  {
-    title: `archive`,
-    count: 0
-  },
-];
-
-renderElement(mainElement, getFiltersMarkup(filters));
-
+renderElement(mainElement, getFiltersMarkup(FILTERS));
 renderElement(mainElement, getTaskboardContainerMarkup());
 
 const taskboardContainerElement = document.querySelector(`.board`);

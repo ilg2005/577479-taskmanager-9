@@ -52,12 +52,9 @@ const getTask = () => (
 );
 
 const getTasksData = () => {
-  for (let i = 0; i <= TASKS_COUNT; i++) {
+  for (let i = 0; i < TASKS_COUNT; i++) {
     TASKS.push(getTask());
   }
 };
 
 getTasksData();
-
-console.log(TASKS);
-console.log(`okay`);
