@@ -5,7 +5,7 @@ import {getTaskboardContainerMarkup} from "./components/taskboard-container.js";
 import {getCardEditFormMarkup} from "./components/card-edit-form.js";
 import {getCardMarkup} from "./components/card.js";
 import {getLoadMoreBtnMarkup} from "./components/load-more-btn.js";
-import {getData} from "./components/data.js";
+import {TASKS} from "./components/data.js";
 
 const renderElement = (element, markup, renderingCount = 1) => {
   for (let i = 0; i < renderingCount; i++) {
@@ -49,6 +49,7 @@ const filters = [
     count: 0
   },
 ];
+
 renderElement(mainElement, getFiltersMarkup(filters));
 
 renderElement(mainElement, getTaskboardContainerMarkup());
@@ -58,12 +59,7 @@ const tasksContainerElement = taskboardContainerElement.querySelector(`.board__t
 
 renderElement(tasksContainerElement, getCardEditFormMarkup());
 
-const TASK_COUNT_TO_RENDER = 8;
-
-const TASKS = [];
-for (let i = 0; i < TASK_COUNT_TO_RENDER; i++) {
-  let task = getData();
-  TASKS.push(task);
+for (const task of TASKS) {
   renderElement(tasksContainerElement, getCardMarkup(task.color, task.repeatingDays, task.description, task.dueDate, task.tags));
 }
 

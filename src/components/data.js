@@ -12,6 +12,9 @@ const COLORS = [`black`, `yellow`, `blue`, `green`, `pink`];
 
 const WEEK_DAYS = [`Mo`, `Tu`, `We`, `Th`, `Fr`, `Sa`, `Su`];
 
+export const TASKS = [];
+const TASKS_COUNT = 8;
+
 const MSEC_IN_A_WEEK = 7 * 24 * 60 * 60 * 1000;
 const weekBehindNow = new Date() - MSEC_IN_A_WEEK;
 const weekAheadNow = weekBehindNow + 2 * MSEC_IN_A_WEEK;
@@ -36,7 +39,7 @@ const getRepeatingDaysObject = (weekDays) => {
   return repeatingDays;
 };
 
-export const getData = () => (
+const getTask = () => (
   {
     description: getRandomElementFromArray(DESCRIPTION_LINES),
     dueDate: new Date(getRandomInRange(weekBehindNow, weekAheadNow)),
@@ -48,3 +51,13 @@ export const getData = () => (
   }
 );
 
+const getTasksData = () => {
+  for (let i = 0; i <= TASKS_COUNT; i++) {
+    TASKS.push(getTask());
+  }
+};
+
+getTasksData();
+
+console.log(TASKS);
+console.log(`okay`);
