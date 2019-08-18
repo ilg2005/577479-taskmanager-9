@@ -1,6 +1,6 @@
 import {utils} from "./utils.js";
 
-export const getCardEditFormMarkup = (color = `black`, repeatingDays, description, dueDate) => (`
+export const getCardEditFormMarkup = (color = `black`, repeatingDays, description, dueDate, tagsList) => (`
           <article class="card card--edit card--${color} card--${utils.checkRepeats(repeatingDays)}">
             <form class="card__form" method="get">
               <div class="card__inner">
@@ -36,7 +36,7 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
                   <div class="card__details">
                     <div class="card__dates">
                       <button class="card__date-deadline-toggle" type="button">
-                        date: <span class="card__date-status">yes</span>
+                        date: <span class="card__date-status">${dueDate ? `yes` : `no`}</span>
                       </button>
 
                       <fieldset class="card__date-deadline">
@@ -52,7 +52,7 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
                       </fieldset>
 
                       <button class="card__repeat-toggle" type="button">
-                        repeat:<span class="card__repeat-status">yes</span>
+                        repeat:<span class="card__repeat-status">${Object.keys(repeatingDays).some((day) => repeatingDays[day]) ? `yes` : `no`}</span>
                       </button>
 
                       <fieldset class="card__repeat-days">
@@ -136,50 +136,22 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
 
                     <div class="card__hashtag">
                       <div class="card__hashtag-list">
+                        ${Array.from(tagsList).map((tag) => `
                         <span class="card__hashtag-inner">
                           <input
                             type="hidden"
                             name="hashtag"
-                            value="repeat"
+                            value=${tag}
                             class="card__hashtag-hidden-input"
                           />
                           <p class="card__hashtag-name">
-                            #repeat
+                            #${tag}
                           </p>
                           <button type="button" class="card__hashtag-delete">
                             delete
                           </button>
-                        </span>
-
-                        <span class="card__hashtag-inner">
-                          <input
-                            type="hidden"
-                            name="hashtag"
-                            value="repeat"
-                            class="card__hashtag-hidden-input"
-                          />
-                          <p class="card__hashtag-name">
-                            #cinema
-                          </p>
-                          <button type="button" class="card__hashtag-delete">
-                            delete
-                          </button>
-                        </span>
-
-                        <span class="card__hashtag-inner">
-                          <input
-                            type="hidden"
-                            name="hashtag"
-                            value="repeat"
-                            class="card__hashtag-hidden-input"
-                          />
-                          <p class="card__hashtag-name">
-                            #entertaiment
-                          </p>
-                          <button type="button" class="card__hashtag-delete">
-                            delete
-                          </button>
-                        </span>
+                        </span>`)
+                        .join(``)}
                       </div>
 
                       <label>

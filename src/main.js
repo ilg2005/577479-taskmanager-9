@@ -28,7 +28,7 @@ const tasksContainerElement = taskboardContainerElement.querySelector(`.board__t
 
 const [firstTask, ...initialRestTasks] = TASKS;
 
-renderElement(tasksContainerElement, getCardEditFormMarkup(firstTask.color, firstTask.repeatingDays, firstTask.description, firstTask.dueDate));
+renderElement(tasksContainerElement, getCardEditFormMarkup(firstTask.color, firstTask.repeatingDays, firstTask.description, firstTask.dueDate, firstTask.tags));
 renderElement(taskboardContainerElement, getLoadMoreBtnMarkup());
 
 const tasksLoaderElement = taskboardContainerElement.querySelector(`.load-more`);
