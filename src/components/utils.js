@@ -7,4 +7,5 @@ export const utils = {
   checkRepeats: (daysWithRepeats) => Object.keys(daysWithRepeats).some((day) => daysWithRepeats[day]) ? `repeat` : ``,
 
   checkOverdue: (deadline) => (deadline <= new Date()) ? `card--deadline` : ``,
+  hideElement: (element) => element.classList.add(`hidden`),
 };
