@@ -1,6 +1,12 @@
+const POSITION = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
+
 export const utils = {
   MONTHS: [`JANUARY`, `FEBRUARY`, `MARCH`, `APRIL`, `MAY`, `JUNE`, `JULY`, `AUGUST`, `SEPTEMBER`, `OCTOBER`, `NOVEMBER`, `DECEMBER`],
   COLORS: [`black`, `yellow`, `blue`, `green`, `pink`],
+
   getTimePeriod: (hour) => (hour >= 12) ? `PM` : `AM`,
   getHourIn12hFormat: (hour) => (hour > 12) ? (hour - 12) : hour,
 
@@ -8,4 +14,27 @@ export const utils = {
 
   checkOverdue: (deadline) => (deadline <= new Date()) ? `card--deadline` : ``,
   hideElement: (element) => element.classList.add(`hidden`),
+
+  createElement: (template) => {
+    const newElement = document.createElement(`div`);
+    newElement.innerHTML = template;
+    return newElement.firstChild;
+  },
+
+  render: (container, element, place) => {
+    switch (place) {
+      case POSITION.AFTERBEGIN:
+        container.prepend(element);
+        break;
+      case POSITION.BEFOREEND:
+        container.append(element);
+        break;
+    }
+  },
+
+  unrender: (element) => {
+    if (element) {
+      element.remove();
+    }
+  },
 };
