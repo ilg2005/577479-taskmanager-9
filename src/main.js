@@ -26,16 +26,50 @@ renderElement(mainElement, getTaskboardContainerMarkup());
 const taskboardContainerElement = document.querySelector(`.board`);
 const tasksContainerElement = taskboardContainerElement.querySelector(`.board__tasks`);
 
-const [firstTask, ...initialRestTasks] = TASKS;
+const renderTask = (taskMock) => {
+  const task = new Task(taskMock);
+  const taskEdit = new TaskEdit(taskMock);
 
-const taskEdit = new TaskEdit(firstTask);
-utils.render(tasksContainerElement, taskEdit.getElement(), `beforeend`);
+  const escKeyDownHandler = (evt) => {
+    if (evt.key === `Escape` || evt.key === `Esc`) {
+      tasksContainerElement.replaceChild(task.getElement(), taskEdit.getElement());
+      document.removeEventListener(`keydown`, escKeyDownHandler);
+    }
+  };
 
+  task.getElement()
+    .querySelector(`.card__btn--edit`)
+    .addEventListener(`click`, () => {
+      tasksContainerElement.replaceChild(taskEdit.getElement(), task.getElement());
+      document.addEventListener(`keydown`, escKeyDownHandler);
+    });
 
+  taskEdit.getElement().querySelector(`textarea`)
+    .addEventListener(`focus`, () => {
+      document.removeEventListener(`keydown`, escKeyDownHandler);
+    });
+
+  taskEdit.getElement().querySelector(`textarea`)
+    .addEventListener(`blur`, () => {
+      document.addEventListener(`keydown`, escKeyDownHandler);
+    });
+
+  taskEdit.getElement()
+    .querySelector(`.card__save`)
+    .addEventListener(`click`, () => {
+      tasksContainerElement.replaceChild(task.getElement(), taskEdit.getElement());
+      document.removeEventListener(`keydown`, escKeyDownHandler);
+    });
+
+  utils.render(tasksContainerElement, task.getElement(), `beforeend`);
+};
+
+TASKS.forEach((taskMock) => renderTask(taskMock));
 renderElement(taskboardContainerElement, getLoadMoreBtnMarkup());
 
-const tasksLoaderElement = taskboardContainerElement.querySelector(`.load-more`);
+// const tasksLoaderElement = taskboardContainerElement.querySelector(`.load-more`);
 
+/*
 const TASKS_TO_SHOW = 8;
 let restTasksArray = initialRestTasks;
 const tasksLoaderElementClickHandler = () => showTasks(restTasksArray);
@@ -58,5 +92,6 @@ const showTasks = (currentTasksArray) => {
 };
 
 showTasks(restTasksArray);
+*/
 
 
