@@ -64,7 +64,7 @@ const renderTask = (taskMock) => {
   utils.render(tasksContainerElement, task.getElement(), `beforeend`);
 };
 
-TASKS.forEach((taskMock) => renderTask(taskMock));
+// TASKS.forEach((taskMock) => renderTask(taskMock));
 
 const renderLoadMoreBtn = () => {
   const loadMoreBtn = new LoadMoreBtn();
@@ -73,31 +73,25 @@ const renderLoadMoreBtn = () => {
 
 renderLoadMoreBtn();
 
-// const tasksLoaderElement = taskboardContainerElement.querySelector(`.load-more`);
+const tasksLoaderElement = taskboardContainerElement.querySelector(`.load-more`);
 
-/*
 const TASKS_TO_SHOW = 8;
-let restTasksArray = initialRestTasks;
+let restTasksArray;
 const tasksLoaderElementClickHandler = () => showTasks(restTasksArray);
+
 const showTasks = (currentTasksArray) => {
   if (currentTasksArray.length > TASKS_TO_SHOW) {
-    restTasksArray = currentTasksArray.splice(TASKS_TO_SHOW);
-    for (const task of currentTasksArray) {
-      const taskInstance = new Task(task);
-      utils.render(tasksContainerElement, taskInstance.getElement(), `beforeend`);
-    }
+    const currentTasksArrayClone = currentTasksArray.slice(0);
+    restTasksArray = currentTasksArrayClone.splice(TASKS_TO_SHOW);
+    currentTasksArrayClone.forEach((taskMock) => renderTask(taskMock));
     tasksLoaderElement.addEventListener(`click`, tasksLoaderElementClickHandler);
   } else {
-    for (const task of currentTasksArray) {
-      const taskInstance = new Task(task);
-      utils.render(tasksContainerElement, taskInstance.getElement(), `beforeend`);
-    }
+    currentTasksArray.forEach((taskMock) => renderTask(taskMock));
     utils.hideElement(tasksLoaderElement);
     tasksLoaderElement.removeEventListener(`click`, tasksLoaderElementClickHandler);
   }
 };
 
-showTasks(restTasksArray);
-*/
+showTasks(TASKS);
 
 
