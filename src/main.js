@@ -1,19 +1,12 @@
 import Menu from "./components/menu.js";
 import SearchField from "./components/searchfield.js";
-import {getFiltersMarkup} from "./components/filter.js";
-import {getTaskboardContainerMarkup} from "./components/taskboard-container.js";
+import Filters from "./components/filters.js";
+import TaskboardContainer from "./components/taskboard-container.js";
 import {TASKS} from "./components/data.js";
-import {FILTERS} from "./components/filters-count.js";
 import TaskEdit from "./components/task-edit.js";
 import Task from "./components/task.js";
 import LoadMoreBtn from "./components/load-more-btn.js";
 import {utils} from "./components/utils.js";
-
-const renderElement = (element, markup, renderingCount = 1) => {
-  for (let i = 0; i < renderingCount; i++) {
-    element.insertAdjacentHTML(`beforeend`, markup);
-  }
-};
 
 const mainElement = document.querySelector(`.main`);
 const menuContainerElement = document.querySelector(`.main__control`);
@@ -24,8 +17,11 @@ utils.render(menuContainerElement, menu.getElement(), `beforeend`);
 const searchField = new SearchField();
 utils.render(mainElement, searchField.getElement(), `beforeend`);
 
-renderElement(mainElement, getFiltersMarkup(FILTERS));
-renderElement(mainElement, getTaskboardContainerMarkup());
+const filters = new Filters(TASKS);
+utils.render(mainElement, filters.getElement(), `beforeend`);
+
+const taskBoardContainer = new TaskboardContainer();
+utils.render(mainElement, taskBoardContainer.getElement(), `beforeend`);
 
 const taskboardContainerElement = document.querySelector(`.board`);
 const tasksContainerElement = taskboardContainerElement.querySelector(`.board__tasks`);
@@ -67,8 +63,6 @@ const renderTask = (taskMock) => {
 
   utils.render(tasksContainerElement, task.getElement(), `beforeend`);
 };
-
-// TASKS.forEach((taskMock) => renderTask(taskMock));
 
 const renderLoadMoreBtn = () => {
   const loadMoreBtn = new LoadMoreBtn();
