@@ -5,7 +5,7 @@ import {getTaskboardContainerMarkup} from "./components/taskboard-container.js";
 import {TASKS} from "./components/data.js";
 import {FILTERS} from "./components/filters-count.js";
 import TaskEdit from "./components/task-edit.js";
-// import Task from "./components/task.js";
+import Task from "./components/task.js";
 import {getLoadMoreBtnMarkup} from "./components/load-more-btn.js";
 import {utils} from "./components/utils.js";
 
@@ -26,20 +26,14 @@ renderElement(mainElement, getTaskboardContainerMarkup());
 const taskboardContainerElement = document.querySelector(`.board`);
 const tasksContainerElement = taskboardContainerElement.querySelector(`.board__tasks`);
 
-/*
 const [firstTask, ...initialRestTasks] = TASKS;
-*/
 
-const taskEdit = new TaskEdit(TASKS[0]);
+const taskEdit = new TaskEdit(firstTask);
 utils.render(tasksContainerElement, taskEdit.getElement(), `beforeend`);
 
 
-/*
-renderElement(tasksContainerElement, taskEdit);
-*/
 renderElement(taskboardContainerElement, getLoadMoreBtnMarkup());
 
-/*
 const tasksLoaderElement = taskboardContainerElement.querySelector(`.load-more`);
 
 const TASKS_TO_SHOW = 8;
@@ -49,12 +43,14 @@ const showTasks = (currentTasksArray) => {
   if (currentTasksArray.length > TASKS_TO_SHOW) {
     restTasksArray = currentTasksArray.splice(TASKS_TO_SHOW);
     for (const task of currentTasksArray) {
-      renderElement(tasksContainerElement, getCardMarkup(task.color, task.repeatingDays, task.description, task.dueDate, task.tags));
+      const taskInstance = new Task(task);
+      utils.render(tasksContainerElement, taskInstance.getElement(), `beforeend`);
     }
     tasksLoaderElement.addEventListener(`click`, tasksLoaderElementClickHandler);
   } else {
     for (const task of currentTasksArray) {
-      renderElement(tasksContainerElement, getCardMarkup(task.color, task.repeatingDays, task.description, task.dueDate, task.tags));
+      const taskInstance = new Task(task);
+      utils.render(tasksContainerElement, taskInstance.getElement(), `beforeend`);
     }
     utils.hideElement(tasksLoaderElement);
     tasksLoaderElement.removeEventListener(`click`, tasksLoaderElementClickHandler);
@@ -62,6 +58,5 @@ const showTasks = (currentTasksArray) => {
 };
 
 showTasks(restTasksArray);
-*/
 
 

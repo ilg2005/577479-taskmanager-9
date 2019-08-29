@@ -1,12 +1,14 @@
 import {utils} from "./utils.js";
 
 export default class Task {
-  constructor({color, repeatingDays, description, dueDate, tags}) {
+  constructor({description, dueDate, tags, repeatingDays, color = `black`, isFavorite, isArchive}) {
     this._color = color;
     this._repeatingDays = repeatingDays;
     this._description = description;
     this._dueDate = dueDate;
     this._tags = tags;
+    this._isFavorite = isFavorite;
+    this._isArchive = isArchive;
   }
 
   getElement() {
@@ -25,12 +27,12 @@ export default class Task {
                   <button type="button" class="card__btn card__btn--edit">
                     edit
                   </button>
-                  <button type="button" class="card__btn card__btn--archive">
+                  <button type="button" class="card__btn card__btn--archive ${this._isArchive ? `` : `card__btn--disabled`}">
                     archive
                   </button>
                   <button
                     type="button"
-                    class="card__btn card__btn--favorites card__btn--disabled"
+                    class="card__btn card__btn--favorites ${this._isFavorite ? `` : `card__btn--disabled`}"
                   >
                     favorites
                   </button>
