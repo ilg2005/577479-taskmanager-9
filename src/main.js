@@ -4,8 +4,8 @@ import {getFiltersMarkup} from "./components/filter.js";
 import {getTaskboardContainerMarkup} from "./components/taskboard-container.js";
 import {TASKS} from "./components/data.js";
 import {FILTERS} from "./components/filters-count.js";
-import {getCardEditFormMarkup} from "./components/edit-task.js";
-import {getCardMarkup} from "./components/card.js";
+import TaskEdit from "./components/task-edit.js";
+// import Task from "./components/task.js";
 import {getLoadMoreBtnMarkup} from "./components/load-more-btn.js";
 import {utils} from "./components/utils.js";
 
@@ -26,11 +26,20 @@ renderElement(mainElement, getTaskboardContainerMarkup());
 const taskboardContainerElement = document.querySelector(`.board`);
 const tasksContainerElement = taskboardContainerElement.querySelector(`.board__tasks`);
 
+/*
 const [firstTask, ...initialRestTasks] = TASKS;
+*/
 
-renderElement(tasksContainerElement, getCardEditFormMarkup(firstTask.color, firstTask.repeatingDays, firstTask.description, firstTask.dueDate, firstTask.tags));
+const taskEdit = new TaskEdit(TASKS[0]);
+utils.render(tasksContainerElement, taskEdit.getElement(), `beforeend`);
+
+
+/*
+renderElement(tasksContainerElement, taskEdit);
+*/
 renderElement(taskboardContainerElement, getLoadMoreBtnMarkup());
 
+/*
 const tasksLoaderElement = taskboardContainerElement.querySelector(`.load-more`);
 
 const TASKS_TO_SHOW = 8;
@@ -53,5 +62,6 @@ const showTasks = (currentTasksArray) => {
 };
 
 showTasks(restTasksArray);
+*/
 
 

@@ -1,8 +1,3 @@
-const POSITION = {
-  AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`
-};
-
 export const utils = {
   MONTHS: [`JANUARY`, `FEBRUARY`, `MARCH`, `APRIL`, `MAY`, `JUNE`, `JULY`, `AUGUST`, `SEPTEMBER`, `OCTOBER`, `NOVEMBER`, `DECEMBER`],
   COLORS: [`black`, `yellow`, `blue`, `green`, `pink`],
@@ -23,10 +18,10 @@ export const utils = {
 
   render: (container, element, place) => {
     switch (place) {
-      case POSITION.AFTERBEGIN:
+      case `afterbegin`:
         container.prepend(element);
         break;
-      case POSITION.BEFOREEND:
+      case `beforeend`:
         container.append(element);
         break;
     }
