@@ -1,5 +1,16 @@
-export const getMenuMarkup = () => (`
-        <section class="control__btn-wrap">
+import {utils} from "./utils";
+
+export default class Menu {
+  getElement() {
+    if (!this._element) {
+      this._element = utils.createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  getTemplate() {
+    return `<section class="control__btn-wrap">
           <input
             type="radio"
             name="control"
@@ -26,5 +37,6 @@ export const getMenuMarkup = () => (`
           <label for="control__statistic" class="control__label"
             >STATISTICS</label
           >
-        </section>
-`);
+        </section>`;
+  }
+}

@@ -1,5 +1,5 @@
-import {getMenuMarkup} from "./components/menu.js";
-import {getSearchFieldMarkup} from "./components/searchfield.js";
+import Menu from "./components/menu.js";
+import SearchField from "./components/searchfield.js";
 import {getFiltersMarkup} from "./components/filter.js";
 import {getTaskboardContainerMarkup} from "./components/taskboard-container.js";
 import {TASKS} from "./components/data.js";
@@ -18,8 +18,12 @@ const renderElement = (element, markup, renderingCount = 1) => {
 const mainElement = document.querySelector(`.main`);
 const menuContainerElement = document.querySelector(`.main__control`);
 
-renderElement(menuContainerElement, getMenuMarkup());
-renderElement(mainElement, getSearchFieldMarkup());
+const menu = new Menu();
+utils.render(menuContainerElement, menu.getElement(), `beforeend`);
+
+const searchField = new SearchField();
+utils.render(mainElement, searchField.getElement(), `beforeend`);
+
 renderElement(mainElement, getFiltersMarkup(FILTERS));
 renderElement(mainElement, getTaskboardContainerMarkup());
 
