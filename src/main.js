@@ -6,7 +6,7 @@ import {TASKS} from "./components/data.js";
 import {FILTERS} from "./components/filters-count.js";
 import TaskEdit from "./components/task-edit.js";
 import Task from "./components/task.js";
-import {getLoadMoreBtnMarkup} from "./components/load-more-btn.js";
+import LoadMoreBtn from "./components/load-more-btn.js";
 import {utils} from "./components/utils.js";
 
 const renderElement = (element, markup, renderingCount = 1) => {
@@ -65,7 +65,13 @@ const renderTask = (taskMock) => {
 };
 
 TASKS.forEach((taskMock) => renderTask(taskMock));
-renderElement(taskboardContainerElement, getLoadMoreBtnMarkup());
+
+const renderLoadMoreBtn = () => {
+  const loadMoreBtn = new LoadMoreBtn();
+  utils.render(taskboardContainerElement, loadMoreBtn.getElement(), `beforeend`);
+};
+
+renderLoadMoreBtn();
 
 // const tasksLoaderElement = taskboardContainerElement.querySelector(`.load-more`);
 
