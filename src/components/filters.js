@@ -7,7 +7,12 @@ export default class Filters {
   }
 
   getCountsForFilters(tasksArray) {
-    let countOverdue = 0; let countToday = 0; let countFavorite = 0; let countRepeating = 0; let countTags = 0; let countArchive = 0;
+    let countOverdue = 0;
+    let countToday = 0;
+    let countFavorite = 0;
+    let countRepeating = 0;
+    let countTags = 0;
+    let countArchive = 0;
     for (const task of tasksArray) {
       if (task.isFavorite) {
         countFavorite++;
@@ -29,13 +34,13 @@ export default class Filters {
       }
     }
     return {
-      favorites: countFavorite,
-      archive: countArchive,
-      repeating: countRepeating,
-      tags: countTags,
+      all: tasksArray.length - countArchive,
       overdue: countOverdue,
       today: countToday,
-      all: tasksArray.length - countArchive,
+      favorites: countFavorite,
+      repeating: countRepeating,
+      tags: countTags,
+      archive: countArchive,
     };
   }
 
@@ -49,7 +54,7 @@ export default class Filters {
 
   getTemplate() {
     return `<section class="main__filter filter container">
-        ${Object.entries(this._filtersCounts).forEach(([title, count]) => `<input
+        ${Object.entries(this._filtersCounts).map(([title, count]) => `<input
     type="radio"
     id="filter__${title}"
     class="filter__input visually-hidden"
@@ -58,7 +63,7 @@ export default class Filters {
     />
     <label for="filter__${title}" class="filter__label">
       ${title} <span class="filter__${title}-count">${count ? count : 0}</span></label
-    >`)}
+    >`).join(``)}
       </section>`;
   }
 }
