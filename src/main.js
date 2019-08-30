@@ -17,7 +17,7 @@ utils.render(menuContainerElement, menu.getElement(), `beforeend`);
 const searchField = new SearchField();
 utils.render(mainElement, searchField.getElement(), `beforeend`);
 
-const filters = new Filters();
+const filters = new Filters(TASKS);
 utils.render(mainElement, filters.getElement(), `beforeend`);
 
 const taskBoardContainer = new TaskboardContainer();

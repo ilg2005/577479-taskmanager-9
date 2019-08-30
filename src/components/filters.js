@@ -1,9 +1,8 @@
-import {TASKS} from "./data.js";
 import {utils} from "./utils.js";
 
 export default class Filters {
-  constructor() {
-    this._filtersCounts = this.getCountsForFilters(TASKS);
+  constructor(tasksArray) {
+    this._filtersCounts = this.getCountsForFilters(tasksArray);
   }
 
   getCountsForFilters(tasksArray) {
