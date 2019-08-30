@@ -1,61 +1,9 @@
-import {utils} from "./utils";
+import {TASKS} from "./data.js";
+import {utils} from "./utils.js";
 
 export default class Filters {
-  constructor(taskArray) {
-    this._FILTERS = [
-      {
-        title: `all`,
-        count: this.getCountsForFilters(taskArray).countAll
-      },
-      {
-        title: `overdue`,
-        count: this.getCountsForFilters(taskArray).countOverdue
-      },
-      {
-        title: `today`,
-        count: this.getCountsForFilters(taskArray).countToday
-      },
-      {
-        title: `favorites`,
-        count: this.getCountsForFilters(taskArray).countFavorite
-      },
-      {
-        title: `repeating`,
-        count: this.getCountsForFilters(taskArray).countRepeating
-      },
-      {
-        title: `tags`,
-        count: this.getCountsForFilters(taskArray).countTags
-      },
-      {
-        title: `archive`,
-        count: this.getCountsForFilters(taskArray).countArchive
-      },
-    ];
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = utils.createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  getTemplate() {
-    return `<section class="main__filter filter container">
-        ${this._FILTERS.map((filter) => `
-        <input
-          type="radio"
-          id="filter__${filter.title}"
-          class="filter__input visually-hidden"
-          name="filter"
-          ${(filter.count === 0) ? `disabled` : ``}
-        />
-        <label for="filter__${filter.title}" class="filter__label">
-          ${filter.title} <span class="filter__${filter.title}-count">${filter.count ? filter.count : 0}</span></label
-        >`).join(``)}
-      </section>`;
+  constructor() {
+    this._filtersCounts = this.getCountsForFilters(TASKS);
   }
 
   getCountsForFilters(tasksArray) {
@@ -81,13 +29,36 @@ export default class Filters {
       }
     }
     return {
-      countFavorite,
-      countArchive,
-      countRepeating,
-      countTags,
-      countOverdue,
-      countToday,
-      countAll: tasksArray.length - countArchive,
+      favorites: countFavorite,
+      archive: countArchive,
+      repeating: countRepeating,
+      tags: countTags,
+      overdue: countOverdue,
+      today: countToday,
+      all: tasksArray.length - countArchive,
     };
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = utils.createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  getTemplate() {
+    return `<section class="main__filter filter container">
+        ${Object.entries(this._filtersCounts).forEach(([title, count]) => `<input
+    type="radio"
+    id="filter__${title}"
+    class="filter__input visually-hidden"
+    name="filter"
+      ${(count === 0) ? `disabled` : ``}
+    />
+    <label for="filter__${title}" class="filter__label">
+      ${title} <span class="filter__${title}-count">${count ? count : 0}</span></label
+    >`)}
+      </section>`;
   }
 }
