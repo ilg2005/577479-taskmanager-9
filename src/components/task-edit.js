@@ -1,16 +1,39 @@
 import {utils} from "./utils.js";
 
-export const getCardEditFormMarkup = (color = `black`, repeatingDays, description, dueDate, tagsList) => (`
-          <article class="card card--edit card--${color} card--${utils.checkRepeats(repeatingDays)}">
+export default class TaskEdit {
+  constructor({description, dueDate, tags, repeatingDays, color = `black`, isFavorite, isArchive}) {
+    this._color = color;
+    this._repeatingDays = repeatingDays;
+    this._description = description;
+    this._dueDate = dueDate;
+    this._tagsList = tags;
+    this._isFavorite = isFavorite;
+    this._isArchive = isArchive;
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = utils.createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return `<article class="card card--edit card--${this._color} card--${utils.checkRepeats(this._repeatingDays)}">
             <form class="card__form" method="get">
               <div class="card__inner">
                 <div class="card__control">
-                  <button type="button" class="card__btn card__btn--archive">
+                  <button type="button" class="card__btn card__btn--archive ${this._isArchive ? `` : `card__btn--disabled`}">
                     archive
                   </button>
                   <button
                     type="button"
-                    class="card__btn card__btn--favorites card__btn--disabled"
+                    class="card__btn card__btn--favorites ${this._isFavorite ? `` : `card__btn--disabled`}"
                   >
                     favorites
                   </button>
@@ -28,7 +51,7 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
                       class="card__text"
                       placeholder="Start typing your text here..."
                       name="text"
-                    >${description}</textarea>
+                    >${this._description}</textarea>
                   </label>
                 </div>
 
@@ -36,7 +59,7 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
                   <div class="card__details">
                     <div class="card__dates">
                       <button class="card__date-deadline-toggle" type="button">
-                        date: <span class="card__date-status">${dueDate ? `yes` : `no`}</span>
+                        date: <span class="card__date-status">${this._dueDate ? `yes` : `no`}</span>
                       </button>
 
                       <fieldset class="card__date-deadline">
@@ -46,25 +69,25 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
                             type="text"
                             placeholder=""
                             name="date"
-                            value="${dueDate.getDate()} ${utils.MONTHS[dueDate.getMonth()]} ${utils.getHourIn12hFormat(dueDate.getHours())}:${dueDate.getMinutes()} ${utils.getTimePeriod(dueDate.getHours())}"
+                            value="${this._dueDate.getDate()} ${utils.MONTHS[this._dueDate.getMonth()]} ${utils.getHourIn12hFormat(this._dueDate.getHours())}:${this._dueDate.getMinutes()} ${utils.getTimePeriod(this._dueDate.getHours())}"
                           />
                         </label>
                       </fieldset>
 
                       <button class="card__repeat-toggle" type="button">
-                        repeat:<span class="card__repeat-status">${Object.keys(repeatingDays).some((day) => repeatingDays[day]) ? `yes` : `no`}</span>
+                        repeat:<span class="card__repeat-status">${Object.keys(this._repeatingDays).some((day) => this._repeatingDays[day]) ? `yes` : `no`}</span>
                       </button>
 
                       <fieldset class="card__repeat-days">
                         <div class="card__repeat-days-inner">
-                        ${Object.keys(repeatingDays).map((day) => `
+                        ${Object.keys(this._repeatingDays).map((day) => `
                           <input
                             class="visually-hidden card__repeat-day-input"
                             type="checkbox"
                             id="repeat-${day}-4"
                             name="repeat"
                             value=${day}
-                            ${repeatingDays[day] ? `checked` : ``}
+                            ${this._repeatingDays[day] ? `checked` : ``}
                           />
                           <label class="card__repeat-day" for="repeat-${day}-4"
                             >${day}</label
@@ -75,7 +98,7 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
 
                     <div class="card__hashtag">
                       <div class="card__hashtag-list">
-                        ${Array.from(tagsList).map((tag) => `
+                        ${Array.from(this._tagsList).map((tag) => `
                         <span class="card__hashtag-inner">
                           <input
                             type="hidden"
@@ -90,7 +113,7 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
                             delete
                           </button>
                         </span>`)
-                        .join(``)}
+      .join(``)}
                       </div>
 
                       <label>
@@ -114,7 +137,7 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
                         class="card__color-input card__color-input--${colorToRender} visually-hidden"
                         name="color"
                         value=${colorToRender}
-                        ${colorToRender === color ? `checked` : ``}
+                        ${colorToRender === this._color ? `checked` : ``}
                       />
                       <label
                         for="color-${colorToRender}-4"
@@ -131,5 +154,6 @@ export const getCardEditFormMarkup = (color = `black`, repeatingDays, descriptio
                 </div>
               </div>
             </form>
-          </article>
-`);
+          </article>`;
+  }
+}
