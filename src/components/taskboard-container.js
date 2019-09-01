@@ -9,6 +9,10 @@ export default class TaskboardContainer {
     return this._element;
   }
 
+  removeElement() {
+    this._element = null;
+  }
+
   getTemplate() {
     return `<section class="board container">
         <div class="board__filter-list">

@@ -19,6 +19,10 @@ export default class Task {
     return this._element;
   }
 
+  removeElement() {
+    this._element = null;
+  }
+
   getTemplate() {
     return `<article class="card card--${this._color} card--${utils.checkRepeats(this._repeatingDays)} ${utils.checkOverdue(this._dueDate)}">
             <div class="card__form">

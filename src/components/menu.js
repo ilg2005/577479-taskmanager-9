@@ -9,6 +9,10 @@ export default class Menu {
     return this._element;
   }
 
+  removeElement() {
+    this._element = null;
+  }
+
   getTemplate() {
     return `<section class="control__btn-wrap">
           <input

@@ -51,6 +51,10 @@ export default class Filters {
     return this._element;
   }
 
+  removeElement() {
+    this._element = null;
+  }
+
   getTemplate() {
     return `<section class="main__filter filter container">
         ${Object.entries(this._filtersCounts).map(([title, count]) => `<input

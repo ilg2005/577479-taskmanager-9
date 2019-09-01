@@ -19,6 +19,10 @@ export default class TaskEdit {
     return this._element;
   }
 
+  removeElement() {
+    this._element = null;
+  }
+
   getTemplate() {
     return `<article class="card card--edit card--${this._color} card--${utils.checkRepeats(this._repeatingDays)}">
             <form class="card__form" method="get">
