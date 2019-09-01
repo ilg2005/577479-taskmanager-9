@@ -32,8 +32,10 @@ const renderTask = (taskMock) => {
 
   const escKeyDownHandler = (evt) => {
     if (evt.key === `Escape` || evt.key === `Esc`) {
-      tasksContainerElement.replaceChild(task.getElement(), taskEdit.getElement());
-      document.removeEventListener(`keydown`, escKeyDownHandler);
+      if (evt.target !== document.querySelector(`.card__text`)) {
+        tasksContainerElement.replaceChild(task.getElement(), taskEdit.getElement());
+        document.removeEventListener(`keydown`, escKeyDownHandler);
+      }
     }
   };
 
