@@ -12,7 +12,7 @@ const COLORS = [`black`, `yellow`, `blue`, `green`, `pink`];
 
 const WEEK_DAYS = [`Mo`, `Tu`, `We`, `Th`, `Fr`, `Sa`, `Su`];
 
-export const TASKS = [];
+export let TASKS = [];
 const TASKS_COUNT = 21;
 
 const MSEC_IN_A_WEEK = 7 * 24 * 60 * 60 * 1000;
@@ -58,3 +58,4 @@ const getTasksData = () => {
 };
 
 getTasksData();
+
