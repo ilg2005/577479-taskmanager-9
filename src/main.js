@@ -63,12 +63,16 @@ if (TASKS.length === 0 || filters._filtersCounts.all === filters._filtersCounts.
         document.addEventListener(`keydown`, escKeyDownHandler);
       });
 
-    taskEdit.getElement()
-      .querySelector(`.card__save`)
-      .addEventListener(`click`, () => {
-        tasksContainerElement.replaceChild(task.getElement(), taskEdit.getElement());
-        document.removeEventListener(`keydown`, escKeyDownHandler);
-      });
+    const submitCardElement = taskEdit.getElement().querySelector(`.card__form`);
+
+    const submitCardHandler = (evt) => {
+      evt.preventDefault();
+      tasksContainerElement.replaceChild(task.getElement(), taskEdit.getElement());
+      document.removeEventListener(`keydown`, escKeyDownHandler);
+      submitCardElement.removeEventListener(`submit`, submitCardHandler);
+    };
+
+    submitCardElement.addEventListener(`submit`, submitCardHandler);
 
     utils.render(tasksContainerElement, task.getElement(), `beforeend`);
   };
