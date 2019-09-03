@@ -65,7 +65,8 @@ if (TASKS.length === 0 || filters._filtersCounts.all === filters._filtersCounts.
 
     const submitCardElement = taskEdit.getElement().querySelector(`.card__save`);
 
-    const submitCardClickHandler = () => {
+    const submitCardClickHandler = (evt) => {
+      evt.preventDefault();
       tasksContainerElement.replaceChild(task.getElement(), taskEdit.getElement());
       document.removeEventListener(`keydown`, escKeyDownHandler);
       submitCardElement.removeEventListener(`submit`, submitCardClickHandler);
