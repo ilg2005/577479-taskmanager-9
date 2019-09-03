@@ -63,16 +63,16 @@ if (TASKS.length === 0 || filters._filtersCounts.all === filters._filtersCounts.
         document.addEventListener(`keydown`, escKeyDownHandler);
       });
 
-    const submitCardElement = taskEdit.getElement().querySelector(`.card__save`);
+    const submitCardElement = taskEdit.getElement().querySelector(`.card__form`);
 
-    const submitCardClickHandler = (evt) => {
+    const submitCardHandler = (evt) => {
       evt.preventDefault();
       tasksContainerElement.replaceChild(task.getElement(), taskEdit.getElement());
       document.removeEventListener(`keydown`, escKeyDownHandler);
-      submitCardElement.removeEventListener(`submit`, submitCardClickHandler);
+      submitCardElement.removeEventListener(`submit`, submitCardHandler);
     };
 
-    submitCardElement.addEventListener(`submit`, submitCardClickHandler);
+    submitCardElement.addEventListener(`submit`, submitCardHandler);
 
     utils.render(tasksContainerElement, task.getElement(), `beforeend`);
   };
