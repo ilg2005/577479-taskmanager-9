@@ -24,7 +24,7 @@ export default class TaskEdit {
   }
 
   getTemplate() {
-    return `<article class="card card--edit card--${this._color} card--${utils.checkRepeats(this._repeatingDays)}">
+    return `<article class="card card--edit card--${this._color} card--${utils.checkRepeats(this._repeatingDays)} ${utils.checkOverdue(this._dueDate)}">
             <form class="card__form" method="get">
               <div class="card__inner">
                 <div class="card__control">
