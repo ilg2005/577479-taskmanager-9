@@ -1,16 +1,8 @@
-import {utils} from "./utils.js";
+import AbstractComponent from "./abstract-component";
 
-export default class NoTasks {
-  getElement() {
-    if (!this._element) {
-      this._element = utils.createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+export default class NoTasks extends AbstractComponent {
+  constructor() {
+    super();
   }
 
   getTemplate() {

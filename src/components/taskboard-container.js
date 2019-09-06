@@ -1,16 +1,8 @@
-import {utils} from "./utils";
+import AbstractComponent from "./abstract-component";
 
-export default class TaskboardContainer {
-  getElement() {
-    if (!this._element) {
-      this._element = utils.createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
+export default class TaskboardContainer extends AbstractComponent {
+  constructor() {
+    super();
   }
 
   getTemplate() {
