@@ -1,18 +1,7 @@
 import {utils} from "./utils.js";
-import AbstractComponent from "./abstract-component.js";
+import Task from "./task.js";
 
-export default class TaskEdit extends AbstractComponent {
-  constructor({description, dueDate, tags, repeatingDays, color = `black`, isFavorite, isArchive}) {
-    super();
-    this._color = color;
-    this._repeatingDays = repeatingDays;
-    this._description = description;
-    this._dueDate = dueDate;
-    this._tagsList = tags;
-    this._isFavorite = isFavorite;
-    this._isArchive = isArchive;
-  }
-
+export default class TaskEdit extends Task {
   getTemplate() {
     return `<article class="card card--edit card--${this._color} card--${utils.checkRepeats(this._repeatingDays)} ${utils.checkOverdue(this._dueDate)}">
             <form class="card__form" method="get">
@@ -88,7 +77,7 @@ export default class TaskEdit extends AbstractComponent {
 
                     <div class="card__hashtag">
                       <div class="card__hashtag-list">
-                        ${Array.from(this._tagsList).map((tag) => `
+                        ${Array.from(this._tags).map((tag) => `
                         <span class="card__hashtag-inner">
                           <input
                             type="hidden"

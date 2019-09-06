@@ -1,10 +1,6 @@
 import AbstractComponent from "./abstract-component";
 
 export default class TaskboardContainer extends AbstractComponent {
-  constructor() {
-    super();
-  }
-
   getTemplate() {
     return `<section class="board container">
         <div class="board__filter-list">
