@@ -4,7 +4,7 @@ import Filters from "./components/filters.js";
 import TaskboardContainer from "./components/taskboard-container.js";
 import {TASKS} from "./components/data.js";
 import NoTasks from "./components/no-tasks.js";
-import BoardController from "./components/board-controller.js";
+import TaskboardController from "./components/taskboard-controller.js";
 import {utils} from "./components/utils.js";
 
 const mainElement = document.querySelector(`.main`);
@@ -31,7 +31,7 @@ if (TASKS.length === 0 || filters._filtersCounts.all === filters._filtersCounts.
   const taskboardContainerElement = document.querySelector(`.board`);
   const tasksContainerElement = taskboardContainerElement.querySelector(`.board__tasks`);
 
-  const boardController = new BoardController(taskboardContainerElement, tasksContainerElement, TASKS);
+  const boardController = new TaskboardController(taskboardContainerElement, tasksContainerElement, TASKS);
   boardController.init();
 
 }
