@@ -3,6 +3,7 @@ import Task from "./task.js";
 import TaskEdit from "./task-edit.js";
 import LoadMoreBtn from "./load-more-btn.js";
 import NoTasks from "./no-tasks.js";
+import Sort from "./sort.js";
 import {TASKS} from "./data.js";
 
 export default class TaskboardController {
@@ -13,6 +14,7 @@ export default class TaskboardController {
     this.TASKS_TO_SHOW = 8;
     this._restTasks = null;
     this._loadMoreBtn = new LoadMoreBtn();
+    this._sort = new Sort();
   }
 
   _renderTasksPortion(tasksArray) {
@@ -77,6 +79,43 @@ export default class TaskboardController {
 
   }
 
+  _implementSorting() {
+    const sortElement = this._sort.getElement();
+    utils.render(this._taskboardContainer, sortElement, `afterbegin`);
+
+    const sortElementClickHandler = (evt) => {
+      evt.preventDefault();
+      if (evt.target.tagName !== `A`) {
+        return;
+      }
+
+      sortElement.querySelector(`.sort__button--active`).classList.remove(`sort__button--active`);
+      this._tasksContainer.innerHTML = ``;
+
+
+      this._loadMoreBtn.getElement().classList.remove(`hide`);
+      switch (evt.target.getAttribute(`data-sort`)) {
+        case `dateUp`:
+          evt.target.classList.add(`sort__button--active`);
+          const tasksByDateUp = this._tasks.slice().sort((a, b) => b.dueDate - a.dueDate);
+          this._restTasks = this._renderTasksPortion(tasksByDateUp);
+          break;
+        case `dateDown`:
+          evt.target.classList.add(`sort__button--active`);
+          const tasksByDateDown = this._tasks.slice().sort((a, b) => a.dueDate - b.dueDate);
+          this._restTasks = this._renderTasksPortion(tasksByDateDown);
+          break;
+        case `default`:
+          evt.target.classList.add(`sort__button--active`);
+          this._restTasks = this._renderTasksPortion(this._tasks);
+          break;
+      }
+    };
+
+    sortElement.addEventListener(`click`, sortElementClickHandler);
+  }
+
+
   init() {
     if (!this._tasks.length) {
       const noTasks = new NoTasks();
@@ -96,6 +135,7 @@ export default class TaskboardController {
         loadMoreBtnElement.addEventListener(`click`, loadMoreBtnElementClickHandler);
       }
       this._editTask();
+      this._implementSorting();
     }
   }
 }

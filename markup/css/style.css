@@ -812,3 +812,7 @@ body {
 .hide {
   display: none;
 }
+
+.sort__button--active {
+  font-weight: bold;
+}
