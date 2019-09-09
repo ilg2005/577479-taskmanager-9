@@ -3,11 +3,12 @@ import Task from "./task.js";
 import TaskEdit from "./task-edit.js";
 import LoadMoreBtn from "./load-more-btn.js";
 import NoTasks from "./no-tasks.js";
+import {TASKS} from "./data.js";
 
 export default class TaskboardController {
-  constructor(taskboardContainer, taskContainer, tasks) {
+  constructor(taskboardContainer, tasksContainer, tasks) {
     this._taskboardContainer = taskboardContainer;
-    this._taskContainer = taskContainer;
+    this._tasksContainer = tasksContainer;
     this._tasks = tasks;
     this.TASKS_TO_SHOW = 8;
     this._restTasks = null;
@@ -17,7 +18,7 @@ export default class TaskboardController {
   _renderTasksPortion(tasksArray) {
     const renderTask = (taskCard) => {
       const task = new Task(taskCard);
-      utils.render(this._taskContainer, task.getElement(), `beforeend`);
+      utils.render(this._tasksContainer, task.getElement(), `beforeend`);
       task.getElement().id = taskCard.id;
     };
     const tasksArrayClone = tasksArray.slice();
@@ -28,11 +29,25 @@ export default class TaskboardController {
     return tasksArrayClone;
   }
 
+  _editTask() {
+    const tasksContainerClickHandler = (evt) => {
+      if (evt.target.className === `card__btn card__btn--edit`) {
+        const taskIndex = evt.target.closest(`article`).id;
+        const task = new Task(TASKS[taskIndex]);
+        const taskEdit = new TaskEdit(TASKS[taskIndex]);
+        const article = document.querySelector(`[id="${taskIndex}"]`);
+        article.replaceWith(taskEdit.getElement());
+      }
+      this._tasksContainer.removeEventListener(`click`, tasksContainerClickHandler);
+    };
+    this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
+
+  }
 
   init() {
     if (!this._tasks.length) {
       const noTasks = new NoTasks();
-      utils.render(this._taskContainer, noTasks.getElement(), `beforeend`);
+      utils.render(this._tasksContainer, noTasks.getElement(), `beforeend`);
     } else {
       this._restTasks = this._renderTasksPortion(this._tasks);
 
@@ -47,6 +62,7 @@ export default class TaskboardController {
         };
         loadMoreBtnElement.addEventListener(`click`, loadMoreBtnElementClickHandler);
       }
+      this._editTask();
     }
   }
 }
