@@ -33,12 +33,33 @@ export default class TaskboardController {
     const tasksContainerClickHandler = (evt) => {
       if (evt.target.className === `card__btn card__btn--edit`) {
         const taskIndex = evt.target.closest(`article`).id;
-        const task = new Task(TASKS[taskIndex]);
         const taskEdit = new TaskEdit(TASKS[taskIndex]);
         const article = document.querySelector(`[id="${taskIndex}"]`);
         article.replaceWith(taskEdit.getElement());
+
+        const escKeyDownHandler = (e) => {
+          if (e.key === `Escape` || e.key === `Esc`) {
+            if (e.target !== document.querySelector(`.card__text`)) {
+              taskEdit.getElement().replaceWith(article);
+              document.removeEventListener(`keydown`, escKeyDownHandler);
+              this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
+            }
+          }
+        };
+        this._tasksContainer.removeEventListener(`click`, tasksContainerClickHandler);
+
+        document.addEventListener(`keydown`, escKeyDownHandler);
+
+        taskEdit.getElement().querySelector(`textarea`)
+          .addEventListener(`focus`, () => {
+            document.removeEventListener(`keydown`, escKeyDownHandler);
+          });
+
+        taskEdit.getElement().querySelector(`textarea`)
+          .addEventListener(`blur`, () => {
+            document.addEventListener(`keydown`, escKeyDownHandler);
+          });
       }
-      this._tasksContainer.removeEventListener(`click`, tasksContainerClickHandler);
     };
     this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
 
