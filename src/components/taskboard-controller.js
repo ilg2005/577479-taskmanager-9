@@ -62,16 +62,17 @@ export default class TaskboardController {
             document.addEventListener(`keydown`, escKeyDownHandler);
           });
 
-        /* const submitCardElement = taskEdit.getElement().querySelector(`.card__form`);
+        const submitCardElement = taskEdit.getElement().querySelector(`.card__form`);
 
         const submitCardHandler = (ev) => {
           ev.preventDefault();
           taskEdit.getElement().replaceWith(article);
           document.removeEventListener(`keydown`, escKeyDownHandler);
           submitCardElement.removeEventListener(`submit`, submitCardHandler);
+          this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
         };
 
-        submitCardElement.addEventListener(`submit`, submitCardHandler);*/
+        submitCardElement.addEventListener(`submit`, submitCardHandler);
 
       }
     };
