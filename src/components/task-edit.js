@@ -1,30 +1,9 @@
 import {utils} from "./utils.js";
+import Task from "./task.js";
 
-export default class TaskEdit {
-  constructor({description, dueDate, tags, repeatingDays, color = `black`, isFavorite, isArchive}) {
-    this._color = color;
-    this._repeatingDays = repeatingDays;
-    this._description = description;
-    this._dueDate = dueDate;
-    this._tagsList = tags;
-    this._isFavorite = isFavorite;
-    this._isArchive = isArchive;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = utils.createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-
+export default class TaskEdit extends Task {
   getTemplate() {
-    return `<article class="card card--edit card--${this._color} card--${utils.checkRepeats(this._repeatingDays)}">
+    return `<article class="card card--edit card--${this._color} card--${utils.checkRepeats(this._repeatingDays)} ${utils.checkOverdue(this._dueDate)}">
             <form class="card__form" method="get">
               <div class="card__inner">
                 <div class="card__control">
@@ -98,7 +77,7 @@ export default class TaskEdit {
 
                     <div class="card__hashtag">
                       <div class="card__hashtag-list">
-                        ${Array.from(this._tagsList).map((tag) => `
+                        ${Array.from(this._tags).map((tag) => `
                         <span class="card__hashtag-inner">
                           <input
                             type="hidden"

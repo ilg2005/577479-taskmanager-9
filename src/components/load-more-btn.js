@@ -1,18 +1,6 @@
-import {utils} from "./utils";
+import AbstractComponent from "./abstract-component";
 
-export default class LoadMoreBtn {
-  getElement() {
-    if (!this._element) {
-      this._element = utils.createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-
+export default class LoadMoreBtn extends AbstractComponent {
   getTemplate() {
     return `<button class="load-more" type="button">load more</button>`;
   }

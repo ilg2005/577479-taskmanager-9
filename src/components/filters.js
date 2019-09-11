@@ -1,7 +1,8 @@
-import {utils} from "./utils.js";
+import AbstractComponent from "./abstract-component.js";
 
-export default class Filters {
+export default class Filters extends AbstractComponent {
   constructor(tasksArray) {
+    super();
     this._filtersCounts = this.getCountsForFilters(tasksArray);
   }
 
@@ -41,18 +42,6 @@ export default class Filters {
       tags: countTags,
       archive: countArchive,
     };
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = utils.createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {

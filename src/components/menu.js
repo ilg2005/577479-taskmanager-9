@@ -1,18 +1,6 @@
-import {utils} from "./utils";
+import AbstractComponent from "./abstract-component";
 
-export default class Menu {
-  getElement() {
-    if (!this._element) {
-      this._element = utils.createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-
+export default class Menu extends AbstractComponent {
   getTemplate() {
     return `<section class="control__btn-wrap">
           <input
