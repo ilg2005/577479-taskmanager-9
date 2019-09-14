@@ -7,9 +7,9 @@ import Sort from "./sort.js";
 import {TASKS} from "./data.js";
 
 export default class TaskboardController {
-  constructor(taskboardContainer, tasksContainer, tasks) {
+  constructor(taskboardContainer, tasks) {
     this._taskboardContainer = taskboardContainer;
-    this._tasksContainer = tasksContainer;
+    this._tasksContainer = this._taskboardContainer.querySelector(`.board__tasks`);
     this._tasks = tasks;
     this.TASKS_TO_SHOW = 8;
     this._restTasks = null;
