@@ -73,11 +73,9 @@ export default class TaskboardController {
         };
 
         submitCardElement.addEventListener(`submit`, submitCardHandler);
-
       }
     };
     this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
-
   }
 
   _implementSorting() {
@@ -92,7 +90,6 @@ export default class TaskboardController {
 
       sortElement.querySelector(`.sort__button--active`).classList.remove(`sort__button--active`);
       this._tasksContainer.innerHTML = ``;
-
 
       this._loadMoreBtn.getElement().classList.remove(`hide`);
       switch (evt.target.getAttribute(`data-sort`)) {
@@ -115,7 +112,6 @@ export default class TaskboardController {
 
     sortElement.addEventListener(`click`, sortElementClickHandler);
   }
-
 
   init() {
     if (!this._tasks.length) {
