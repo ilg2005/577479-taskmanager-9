@@ -23,9 +23,8 @@ utils.render(mainElement, taskBoardContainer.getElement(), `beforeend`);
 
 
 const taskboardContainerElement = document.querySelector(`.board`);
-const tasksContainerElement = taskboardContainerElement.querySelector(`.board__tasks`);
 
-const boardController = new TaskboardController(taskboardContainerElement, tasksContainerElement, TASKS);
+const boardController = new TaskboardController(taskboardContainerElement, TASKS);
 boardController.init();
 
 

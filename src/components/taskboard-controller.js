@@ -7,9 +7,9 @@ import Sort from "./sort.js";
 import {TASKS} from "./data.js";
 
 export default class TaskboardController {
-  constructor(taskboardContainer, tasksContainer, tasks) {
+  constructor(taskboardContainer, tasks) {
     this._taskboardContainer = taskboardContainer;
-    this._tasksContainer = tasksContainer;
+    this._tasksContainer = this._taskboardContainer.querySelector(`.board__tasks`);
     this._tasks = tasks;
     this.TASKS_TO_SHOW = 8;
     this._restTasks = null;
@@ -31,6 +31,19 @@ export default class TaskboardController {
     return tasksArrayClone;
   }
 
+  _changeColor(editedTask) {
+    const colorBoxElementClickHandler = (evt) => {
+      if (evt.target.name === `color`) {
+        const initialColor = `card--${editedTask._color}`;
+        const newColor = `card--${evt.target.value}`;
+        editedTask._color = evt.target.value;
+        editedTask.getElement().classList.remove(initialColor);
+        editedTask.getElement().classList.add(newColor);
+      }
+    };
+    editedTask.getElement().querySelector(`.card__colors-inner`).addEventListener(`click`, colorBoxElementClickHandler);
+  }
+
   _editTask() {
     const tasksContainerClickHandler = (evt) => {
       if (evt.target.className === `card__btn card__btn--edit`) {
@@ -38,6 +51,7 @@ export default class TaskboardController {
         const taskEdit = new TaskEdit(TASKS[taskIndex]);
         const article = document.querySelector(`[id="${taskIndex}"]`);
         article.replaceWith(taskEdit.getElement());
+        this._changeColor(taskEdit);
 
         const escKeyDownHandler = (e) => {
           if (e.key === `Escape` || e.key === `Esc`) {
@@ -66,18 +80,20 @@ export default class TaskboardController {
 
         const submitCardHandler = (ev) => {
           ev.preventDefault();
-          taskEdit.getElement().replaceWith(article);
+          const task = new Task(TASKS[article.id]);
+          task._color = taskEdit._color;
+          TASKS[article.id].color = task._color;
+          task.getElement().id = article.id;
+          taskEdit.getElement().replaceWith(task.getElement());
           document.removeEventListener(`keydown`, escKeyDownHandler);
           submitCardElement.removeEventListener(`submit`, submitCardHandler);
           this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
         };
 
         submitCardElement.addEventListener(`submit`, submitCardHandler);
-
       }
     };
     this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
-
   }
 
   _implementSorting() {
@@ -92,7 +108,6 @@ export default class TaskboardController {
 
       sortElement.querySelector(`.sort__button--active`).classList.remove(`sort__button--active`);
       this._tasksContainer.innerHTML = ``;
-
 
       this._loadMoreBtn.getElement().classList.remove(`hide`);
       switch (evt.target.getAttribute(`data-sort`)) {
@@ -115,7 +130,6 @@ export default class TaskboardController {
 
     sortElement.addEventListener(`click`, sortElementClickHandler);
   }
-
 
   init() {
     if (!this._tasks.length) {
