@@ -5,6 +5,7 @@ import LoadMoreBtn from "./load-more-btn.js";
 import NoTasks from "./no-tasks.js";
 import Sort from "./sort.js";
 import {TASKS} from "./data.js";
+import TaskEditController from "./task-edit-controller.js";
 
 export default class TaskboardController {
   constructor(taskboardContainer, tasks) {
@@ -31,27 +32,15 @@ export default class TaskboardController {
     return tasksArrayClone;
   }
 
-  _changeColor(editedTask) {
-    const colorBoxElementClickHandler = (evt) => {
-      if (evt.target.name === `color`) {
-        const initialColor = `card--${editedTask._color}`;
-        const newColor = `card--${evt.target.value}`;
-        editedTask._color = evt.target.value;
-        editedTask.getElement().classList.remove(initialColor);
-        editedTask.getElement().classList.add(newColor);
-      }
-    };
-    editedTask.getElement().querySelector(`.card__colors-inner`).addEventListener(`click`, colorBoxElementClickHandler);
-  }
-
   _editTask() {
     const tasksContainerClickHandler = (evt) => {
       if (evt.target.className === `card__btn card__btn--edit`) {
         const taskIndex = evt.target.closest(`article`).id;
         const taskEdit = new TaskEdit(TASKS[taskIndex]);
+        const taskEditController = new TaskEditController(taskEdit);
         const article = document.querySelector(`[id="${taskIndex}"]`);
         article.replaceWith(taskEdit.getElement());
-        this._changeColor(taskEdit);
+        taskEditController._init();
 
         const escKeyDownHandler = (e) => {
           if (e.key === `Escape` || e.key === `Esc`) {
@@ -95,6 +84,7 @@ export default class TaskboardController {
     };
     this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
   }
+
 
   _implementSorting() {
     const sortElement = this._sort.getElement();
