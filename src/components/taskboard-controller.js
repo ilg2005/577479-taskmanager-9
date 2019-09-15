@@ -80,7 +80,11 @@ export default class TaskboardController {
 
         const submitCardHandler = (ev) => {
           ev.preventDefault();
-          taskEdit.getElement().replaceWith(article);
+          const task = new Task(TASKS[article.id]);
+          task._color = taskEdit._color;
+          TASKS[article.id].color = task._color;
+          task.getElement().id = article.id;
+          taskEdit.getElement().replaceWith(task.getElement());
           document.removeEventListener(`keydown`, escKeyDownHandler);
           submitCardElement.removeEventListener(`submit`, submitCardHandler);
           this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
