@@ -66,8 +66,8 @@ export default class TaskEditController {
           };
           task._color = entry.color;
           task._description = entry.description;
-          TASKS[article.id].color = entry._color;
-          TASKS[article.id].description = entry._description;
+          TASKS[article.id].color = entry.color;
+          TASKS[article.id].description = entry.description;
           task.getElement().id = article.id;
           taskEdit.getElement().replaceWith(task.getElement());
           formElement.removeEventListener(`submit`, formSubmitHandler);
