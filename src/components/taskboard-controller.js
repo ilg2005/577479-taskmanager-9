@@ -1,10 +1,8 @@
 import {utils} from "./utils.js";
 import Task from "./task.js";
-import TaskEdit from "./task-edit.js";
 import LoadMoreBtn from "./load-more-btn.js";
 import NoTasks from "./no-tasks.js";
 import Sort from "./sort.js";
-import {TASKS} from "./data.js";
 import TaskEditController from "./task-edit-controller.js";
 
 export default class TaskboardController {
@@ -31,60 +29,6 @@ export default class TaskboardController {
     }
     return tasksArrayClone;
   }
-
-  _editTask() {
-    const tasksContainerClickHandler = (evt) => {
-      if (evt.target.className === `card__btn card__btn--edit`) {
-        const taskIndex = evt.target.closest(`article`).id;
-        const taskEdit = new TaskEdit(TASKS[taskIndex]);
-        const taskEditController = new TaskEditController(taskEdit);
-        const article = document.querySelector(`[id="${taskIndex}"]`);
-        article.replaceWith(taskEdit.getElement());
-        taskEditController._init();
-
-        const escKeyDownHandler = (e) => {
-          if (e.key === `Escape` || e.key === `Esc`) {
-            if (e.target !== document.querySelector(`.card__text`)) {
-              taskEdit.getElement().replaceWith(article);
-              document.removeEventListener(`keydown`, escKeyDownHandler);
-              this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
-            }
-          }
-        };
-        this._tasksContainer.removeEventListener(`click`, tasksContainerClickHandler);
-
-        document.addEventListener(`keydown`, escKeyDownHandler);
-
-        taskEdit.getElement().querySelector(`textarea`)
-          .addEventListener(`focus`, () => {
-            document.removeEventListener(`keydown`, escKeyDownHandler);
-          });
-
-        taskEdit.getElement().querySelector(`textarea`)
-          .addEventListener(`blur`, () => {
-            document.addEventListener(`keydown`, escKeyDownHandler);
-          });
-
-        const submitCardElement = taskEdit.getElement().querySelector(`.card__form`);
-
-        const submitCardHandler = (ev) => {
-          ev.preventDefault();
-          const task = new Task(TASKS[article.id]);
-          task._color = taskEdit._color;
-          TASKS[article.id].color = task._color;
-          task.getElement().id = article.id;
-          taskEdit.getElement().replaceWith(task.getElement());
-          document.removeEventListener(`keydown`, escKeyDownHandler);
-          submitCardElement.removeEventListener(`submit`, submitCardHandler);
-          this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
-        };
-
-        submitCardElement.addEventListener(`submit`, submitCardHandler);
-      }
-    };
-    this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
-  }
-
 
   _implementSorting() {
     const sortElement = this._sort.getElement();
@@ -139,8 +83,9 @@ export default class TaskboardController {
         };
         loadMoreBtnElement.addEventListener(`click`, loadMoreBtnElementClickHandler);
       }
-      this._editTask();
       this._implementSorting();
+      const taskEditController = new TaskEditController(this._taskboardContainer);
+      taskEditController._init();
     }
   }
 }
