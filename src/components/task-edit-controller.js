@@ -80,10 +80,16 @@ export default class TaskEditController {
             tags: new Set(formData.getAll(`hashtag`)),
             dueDate: formData.get(`date`),
           };
+
           task._color = entry.color;
-          task._description = entry.description;
           TASKS[article.id].color = entry.color;
+
+          task._description = entry.description;
           TASKS[article.id].description = entry.description;
+
+          task._tags = entry.tags;
+          TASKS[article.id].tags = entry.tags;
+
           task.getElement().id = article.id;
           taskEdit.getElement().replaceWith(task.getElement());
           formElement.removeEventListener(`submit`, formSubmitHandler);
