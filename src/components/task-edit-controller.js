@@ -65,7 +65,9 @@ export default class TaskEditController {
             dueDate: formData.get(`date`),
           };
           task._color = entry.color;
+          task._description = entry.description;
           TASKS[article.id].color = entry._color;
+          TASKS[article.id].description = entry._description;
           task.getElement().id = article.id;
           taskEdit.getElement().replaceWith(task.getElement());
           formElement.removeEventListener(`submit`, formSubmitHandler);
