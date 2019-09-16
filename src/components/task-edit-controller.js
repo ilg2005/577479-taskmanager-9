@@ -1,6 +1,7 @@
 import TaskEdit from "./task-edit.js";
 import {TASKS} from "./data.js";
 import Task from "./task.js";
+import {utils} from "./utils.js";
 
 export default class TaskEditController {
   constructor(taskboardContainer) {
@@ -20,6 +21,20 @@ export default class TaskEditController {
     editedTask.getElement().querySelector(`.card__colors-inner`).addEventListener(`click`, colorBoxElementClickHandler);
   }
 
+  _changeHashtags(editedTask) {
+    const hashtagsElement = editedTask.getElement().querySelector(`.card__hashtag`);
+    if (editedTask._tags.size) {
+
+      const hashtagsElementClickHandler = (evt) => {
+        if (evt.target.className === `card__hashtag-delete`) {
+          utils.unrender(evt.target.closest(`.card__hashtag-inner`));
+        }
+      };
+
+      hashtagsElement.addEventListener(`click`, hashtagsElementClickHandler);
+    }
+  }
+
   _editTask() {
     const tasksContainerClickHandler = (evt) => {
       if (evt.target.className === `card__btn card__btn--edit`) {
@@ -28,6 +43,7 @@ export default class TaskEditController {
         const article = document.querySelector(`[id="${taskIndex}"]`);
         article.replaceWith(taskEdit.getElement());
         this._changeColor(taskEdit);
+        this._changeHashtags(taskEdit);
 
         const escKeyDownHandler = (e) => {
           if (e.key === `Escape` || e.key === `Esc`) {
