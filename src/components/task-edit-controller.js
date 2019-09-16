@@ -52,21 +52,20 @@ export default class TaskEditController {
             document.addEventListener(`keydown`, escKeyDownHandler);
           });
 
-        const submitCardElement = taskEdit.getElement().querySelector(`.card__form`);
+        const formElement = taskEdit.getElement().querySelector(`.card__form`);
 
-        const submitCardHandler = (ev) => {
+        const formSubmitHandler = (ev) => {
           ev.preventDefault();
           const task = new Task(TASKS[article.id]);
           task._color = taskEdit._color;
           TASKS[article.id].color = task._color;
           task.getElement().id = article.id;
           taskEdit.getElement().replaceWith(task.getElement());
-          // document.removeEventListener(`keydown`, escKeyDownHandler);
-          submitCardElement.removeEventListener(`submit`, submitCardHandler);
+          formElement.removeEventListener(`submit`, formSubmitHandler);
           this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
         };
 
-        submitCardElement.addEventListener(`submit`, submitCardHandler);
+        formElement.addEventListener(`submit`, formSubmitHandler);
       }
     };
     this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
