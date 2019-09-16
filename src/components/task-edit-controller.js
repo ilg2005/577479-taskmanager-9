@@ -57,8 +57,15 @@ export default class TaskEditController {
         const formSubmitHandler = (ev) => {
           ev.preventDefault();
           const task = new Task(TASKS[article.id]);
-          task._color = taskEdit._color;
-          TASKS[article.id].color = task._color;
+          const formData = new FormData(formElement);
+          const entry = {
+            description: formData.get(`text`),
+            color: formData.get(`color`),
+            tags: new Set(formData.getAll(`hashtag`)),
+            dueDate: formData.get(`date`),
+          };
+          task._color = entry.color;
+          TASKS[article.id].color = entry._color;
           task.getElement().id = article.id;
           taskEdit.getElement().replaceWith(task.getElement());
           formElement.removeEventListener(`submit`, formSubmitHandler);
