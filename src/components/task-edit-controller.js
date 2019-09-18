@@ -2,7 +2,7 @@ import TaskEdit from "./task-edit.js";
 import {TASKS} from "./data.js";
 import Task from "./task.js";
 import {utils} from "./utils.js";
-import Hashtags from "./hashtags";
+import Hashtag from "./hashtag";
 
 export default class TaskEditController {
   constructor(taskboardContainer) {
@@ -23,31 +23,27 @@ export default class TaskEditController {
   }
 
   _changeHashtags(editedTask) {
-    const hashtagsContainer = editedTask.getElement().querySelector(`.card__details`);
-    const hashtags = new Hashtags(editedTask);
-    utils.render(hashtagsContainer, hashtags.getElement(), `beforeend`);
-    const hashtagsElement = hashtagsContainer.querySelector(`.card__hashtag`);
-
+    const hashtagsElement = editedTask.getElement().querySelector(`.card__hashtag`);
+    const hashtagsListElement = hashtagsElement.querySelector(`.card__hashtag-list`);
     const hashtagsInputElement = hashtagsElement.querySelector(`.card__hashtag-input`);
-    if (editedTask._tags.size) {
-      const hashtagsElementClickHandler = (evt) => {
-        if (evt.target.className === `card__hashtag-delete`) {
-          utils.unrender(evt.target.closest(`.card__hashtag-inner`));
-          console.log(evt.target.previousElementSibling.innerText);
-        }
-      };
 
-      const hashtagsInputElementKeydownHandler = (evt) => {
-        if (evt.key === `Space` || evt.keyCode === 32) {
-          editedTask._tags.add(hashtagsInputElement.value);
-          hashtags.removeElement();
-          hashtagsElement.replaceWith(hashtags.getElement());
-        }
-      };
+    const hashtagsInputElementKeydownHandler = (evt) => {
+      if (evt.key === `Space` || evt.keyCode === 32) {
+        editedTask._tags.add(hashtagsInputElement.value);
+        const newHashtag = new Hashtag(hashtagsInputElement.value);
+        utils.render(hashtagsListElement, newHashtag.getElement(), `beforeend`);
+        hashtagsInputElement.value = ``;
+      }
+    };
 
-      hashtagsElement.addEventListener(`click`, hashtagsElementClickHandler);
-      hashtagsInputElement.addEventListener(`keydown`, hashtagsInputElementKeydownHandler);
-    }
+    const hashtagsElementClickHandler = (evt) => {
+      if (evt.target.className === `card__hashtag-delete`) {
+        utils.unrender(evt.target.closest(`.card__hashtag-inner`));
+      }
+    };
+
+    hashtagsElement.addEventListener(`click`, hashtagsElementClickHandler);
+    hashtagsInputElement.addEventListener(`keydown`, hashtagsInputElementKeydownHandler);
   }
 
   _editTask() {
