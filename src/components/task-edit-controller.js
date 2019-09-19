@@ -29,10 +29,10 @@ export default class TaskEditController {
 
     const hashtagsInputElementKeydownHandler = (evt) => {
       if (evt.key === `Space` || evt.keyCode === 32) {
-        editedTask._tags.add(hashtagsInputElement.value);
-        const newHashtag = new Hashtag(hashtagsInputElement.value, hashtagsInputElement);
+        const newHashtag = new Hashtag(hashtagsInputElement.value, hashtagsInputElement, editedTask);
         if (newHashtag._validateHashtag()) {
           utils.render(hashtagsListElement, newHashtag.getElement(), `beforeend`);
+          editedTask._tags.add(hashtagsInputElement.value.replace(/#/, ``));
           hashtagsInputElement.value = ``;
         }
       } else {
@@ -42,7 +42,12 @@ export default class TaskEditController {
 
     const hashtagsElementClickHandler = (evt) => {
       if (evt.target.className === `card__hashtag-delete`) {
-        utils.unrender(evt.target.closest(`.card__hashtag-inner`));
+        const tagContainer = evt.target.closest(`.card__hashtag-inner`);
+        const tag = tagContainer.querySelector(`.card__hashtag-name`).innerHTML;
+        const strippedTag = tag.trim().replace(/#/, ``);
+        editedTask._tags.delete(strippedTag);
+        utils.unrender(tagContainer);
+        hashtagsInputElement.setCustomValidity(``);
       }
     };
 

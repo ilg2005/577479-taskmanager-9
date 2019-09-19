@@ -1,15 +1,17 @@
 import AbstractComponent from "./abstract-component.js";
 
 export default class Hashtag extends AbstractComponent {
-  constructor(tag, container) {
+  constructor(tag, container, editedTask) {
     super();
     this._tag = tag.trim();
     this._container = container;
+    this._tagsNumber = editedTask._tags.size;
   }
 
   _validateHashtag() {
     const MAX_HASHTAG_LENGTH = 16;
     const MIN_HASHTAG_LENGTH = 3;
+    const MAX_HASHTAGS_NUMBER_PER_TASK = 5;
 
     const checkStartsWithHashSymbol = () => {
       if (this._tag.match(/(^#.+)|(^$)/) === null) {
@@ -31,11 +33,18 @@ export default class Hashtag extends AbstractComponent {
       }
     };
 
+    const checkHashtagsNumberPerTask = () => {
+      if (this._tagsNumber >= MAX_HASHTAGS_NUMBER_PER_TASK) {
+        this._container.setCustomValidity(`No more than 5 hashtags per task`);
+      }
+    };
+
     const hashtagValidation = () => {
 
       checkStartsWithHashSymbol();
       checkTooLong();
       checkTooShort();
+      checkHashtagsNumberPerTask();
     };
 
     hashtagValidation();
