@@ -2,7 +2,7 @@ import TaskEdit from "./task-edit.js";
 import {TASKS} from "./data.js";
 import Task from "./task.js";
 import {utils} from "./utils.js";
-import Hashtag from "./hashtag";
+import Hashtag from "./hashtag.js";
 
 export default class TaskEditController {
   constructor(taskboardContainer) {
@@ -30,9 +30,13 @@ export default class TaskEditController {
     const hashtagsInputElementKeydownHandler = (evt) => {
       if (evt.key === `Space` || evt.keyCode === 32) {
         editedTask._tags.add(hashtagsInputElement.value);
-        const newHashtag = new Hashtag(hashtagsInputElement.value);
-        utils.render(hashtagsListElement, newHashtag.getElement(), `beforeend`);
-        hashtagsInputElement.value = ``;
+        const newHashtag = new Hashtag(hashtagsInputElement.value, hashtagsInputElement);
+        if (newHashtag._validateHashtag()) {
+          utils.render(hashtagsListElement, newHashtag.getElement(), `beforeend`);
+          hashtagsInputElement.value = ``;
+        }
+      } else {
+        hashtagsInputElement.setCustomValidity(``);
       }
     };
 
