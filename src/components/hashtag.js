@@ -13,12 +13,6 @@ export default class Hashtag extends AbstractComponent {
     const MIN_HASHTAG_LENGTH = 3;
     const MAX_HASHTAGS_NUMBER_PER_TASK = 5;
 
-    const checkStartsWithHashSymbol = () => {
-      if (this._tag.match(/(^#.+)|(^$)/) === null) {
-        this._container.setCustomValidity(`Your hashtag should start with # symbol`);
-      }
-    };
-
     const checkTooLong = () => {
       const hashtagChars = this._tag.split(``);
       if (hashtagChars.length > MAX_HASHTAG_LENGTH) {
@@ -40,8 +34,6 @@ export default class Hashtag extends AbstractComponent {
     };
 
     const hashtagValidation = () => {
-
-      checkStartsWithHashSymbol();
       checkTooLong();
       checkTooShort();
       checkHashtagsNumberPerTask();
@@ -62,7 +54,7 @@ export default class Hashtag extends AbstractComponent {
                             class="card__hashtag-hidden-input"
                           />
                           <p class="card__hashtag-name">
-                            ${this._tag}
+                            #${this._tag}
                           </p>
                           <button type="button" class="card__hashtag-delete">
                             delete

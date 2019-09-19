@@ -32,7 +32,7 @@ export default class TaskEditController {
         const newHashtag = new Hashtag(hashtagsInputElement.value, hashtagsInputElement, editedTask);
         if (newHashtag._validateHashtag()) {
           utils.render(hashtagsListElement, newHashtag.getElement(), `beforeend`);
-          editedTask._tags.add(hashtagsInputElement.value.replace(/#/, ``));
+          editedTask._tags.add(hashtagsInputElement.value.trim());
           hashtagsInputElement.value = ``;
         }
       } else {
