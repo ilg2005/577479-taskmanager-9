@@ -5,7 +5,8 @@ export default class Hashtag extends AbstractComponent {
     super();
     this._tag = tag.trim();
     this._container = container;
-    this._tagsNumber = editedTask._tags.size;
+    this._task = editedTask;
+    this._tagsNumber = this._task._tags.size;
   }
 
   _validateHashtag() {
@@ -33,9 +34,16 @@ export default class Hashtag extends AbstractComponent {
       }
     };
 
+    const checkDoubleOccurrence = () => {
+      if (Array.from(this._task._tags).indexOf(this._tag) !== -1) {
+        this._container.setCustomValidity(`This tag already exists. Please, change it.`);
+      }
+    };
+
     const hashtagValidation = () => {
       checkTooLong();
       checkTooShort();
+      checkDoubleOccurrence();
       checkHashtagsNumberPerTask();
     };
 
