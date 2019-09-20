@@ -13,9 +13,12 @@ export default class TaskEditController {
     const dateToggleElement = editedTask.getElement().querySelector(`.card__dates`);
     const statusElement = dateToggleElement.querySelector(`.card__date-status`);
     const deadlineFieldElement = editedTask.getElement().querySelector(`.card__date-deadline`);
+
+    const currentDeadline = editedTask._dueDate;
     const dateToggleElementClickHandler = () => {
-      deadlineFieldElement.style.display = (deadlineFieldElement.style.display === `none`) ? `flex` : `none`;
+      deadlineFieldElement.classList.toggle(`hide`);
       statusElement.innerHTML = (statusElement.innerHTML === `no`) ? `yes` : `no`;
+      editedTask._dueDate = (statusElement.innerHTML === `no`) ? null : currentDeadline;
       return (statusElement.innerHTML !== `no`);
 
     };
@@ -127,6 +130,9 @@ export default class TaskEditController {
 
           task._tags = entry.tags;
           TASKS[article.id].tags = entry.tags;
+
+          /* task._dueDate = entry.dueDate;
+          TASKS[article.id].dueDate = entry.dueDate;*/
 
           task.getElement().id = article.id;
           taskEdit.getElement().replaceWith(task.getElement());
