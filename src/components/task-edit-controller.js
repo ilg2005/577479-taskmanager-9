@@ -19,7 +19,7 @@ export default class TaskEditController {
       deadlineFieldElement.classList.toggle(`hide`);
       statusElement.innerHTML = (statusElement.innerHTML === `no`) ? `yes` : `no`;
       editedTask._dueDate = (statusElement.innerHTML === `no`) ? null : currentDeadline;
-      console.log(editedTask._dueDate);
+      editedTask.getElement().querySelector(`.timestamp`).value = (statusElement.innerHTML === `no`) ? null : currentDeadline;
       return (statusElement.innerHTML !== `no`);
     };
     dateToggleElement.addEventListener(`click`, dateToggleElementClickHandler);
@@ -131,9 +131,13 @@ export default class TaskEditController {
           task._tags = entry.tags;
           TASKS[article.id].tags = entry.tags;
 
-          console.log(entry.dueDate);
-          task._dueDate = new Date(entry.dueDate);
-          TASKS[article.id].dueDate = new Date(entry.dueDate);
+          if (!entry.dueDate) {
+            task._dueDate = null;
+            TASKS[article.id].dueDate = null;
+          } else {
+            task._dueDate = new Date(entry.dueDate);
+            TASKS[article.id].dueDate = new Date(entry.dueDate);
+          }
 
           task.getElement().id = article.id;
           taskEdit.getElement().replaceWith(task.getElement());
