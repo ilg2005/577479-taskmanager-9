@@ -28,7 +28,8 @@ export default class TaskEditController {
     const hashtagsInputElement = hashtagsElement.querySelector(`.card__hashtag-input`);
 
     const hashtagsInputElementKeydownHandler = (evt) => {
-      if (evt.key === `Space` || evt.keyCode === 32) {
+      if (evt.key === `Space` || evt.keyCode === 32 || evt.key === `Enter` || evt.keyCode === 13) {
+        evt.preventDefault();
         const striptags = require(`striptags`);
         const hashtagInput = hashtagsInputElement.value;
         const strippedHashtag = striptags(hashtagInput).trim();
