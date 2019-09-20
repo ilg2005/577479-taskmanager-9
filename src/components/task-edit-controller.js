@@ -131,8 +131,8 @@ export default class TaskEditController {
           task._tags = entry.tags;
           TASKS[article.id].tags = entry.tags;
 
-          /* task._dueDate = entry.dueDate;
-          TASKS[article.id].dueDate = entry.dueDate;*/
+          task._dueDate = entry.dueDate;
+          TASKS[article.id].dueDate = entry.dueDate;
 
           task.getElement().id = article.id;
           taskEdit.getElement().replaceWith(task.getElement());
