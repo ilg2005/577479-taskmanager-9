@@ -47,8 +47,15 @@ export default class TaskEdit extends Task {
                             class="card__date"
                             type="text"
                             placeholder=""
-                            name="date"
+                            name=""
                             value="${this._dueDate.getDate()} ${utils.MONTHS[this._dueDate.getMonth()]} ${utils.getHourIn12hFormat(this._dueDate.getHours())}:${this._dueDate.getMinutes()} ${utils.getTimePeriod(this._dueDate.getHours())}"
+                          />
+                          <input
+                            class="card__date"
+                            type="hidden"
+                            placeholder=""
+                            name="date"
+                            value="${this._dueDate}"
                           />
                         </label>
                       </fieldset>
