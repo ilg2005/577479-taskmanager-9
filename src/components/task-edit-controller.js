@@ -9,6 +9,17 @@ export default class TaskEditController {
     this._tasksContainer = taskboardContainer.querySelector(`.board__tasks`);
   }
 
+  _toggleFavorites(editedTask) {
+    const favoritesBtnElement = editedTask.getElement().querySelector(`.card__btn--favorites `);
+    const favoritesBtnElementClickHandler = () => {
+      favoritesBtnElement.classList.toggle(`card__btn--disabled`);
+      editedTask._isFavorite = (!favoritesBtnElement.classList.contains(`card__btn--disabled`));
+
+      console.log(editedTask._isFavorite);
+    };
+    favoritesBtnElement.addEventListener(`click`, favoritesBtnElementClickHandler);
+  }
+
   _toggleDateStatus(editedTask) {
     const dateToggleElement = editedTask.getElement().querySelector(`.card__dates`);
     const statusElement = dateToggleElement.querySelector(`.card__date-status`);
@@ -85,6 +96,7 @@ export default class TaskEditController {
         this._changeColor(taskEdit);
         this._changeHashtags(taskEdit);
         this._toggleDateStatus(taskEdit);
+        this._toggleFavorites(taskEdit);
 
         const escKeyDownHandler = (e) => {
           if (e.key === `Escape` || e.key === `Esc`) {
@@ -120,6 +132,7 @@ export default class TaskEditController {
             color: formData.get(`color`),
             tags: new Set(formData.getAll(`hashtag`)),
             dueDate: formData.get(`date`),
+            isFavorite: taskEdit._isFavorite,
           };
 
           task._color = entry.color;
@@ -130,6 +143,9 @@ export default class TaskEditController {
 
           task._tags = entry.tags;
           TASKS[article.id].tags = entry.tags;
+
+          task._isFavorite = entry.isFavorite;
+          TASKS[article.id]._isFavorite = entry.isFavorite;
 
           if (!entry.dueDate) {
             task._dueDate = null;
