@@ -43,14 +43,13 @@ export default class TaskEdit extends Task {
 
                       <fieldset class="card__date-deadline">
                         <label class="card__input-deadline-wrap">
-                        ${this._dueDate ?
-    `<input
+                        <input
                             class="card__date"
                             type="text"
                             placeholder=""
                             name=""
-                            value="${this._dueDate.getDate()} ${utils.MONTHS[this._dueDate.getMonth()]} ${utils.getHourIn12hFormat(this._dueDate.getHours())}:${this._dueDate.getMinutes()} ${utils.getTimePeriod(this._dueDate.getHours())}"
-                          />` : ``}
+                            ${this._dueDate ?
+    `value="${this._dueDate.getDate()} ${utils.MONTHS[this._dueDate.getMonth()]} ${utils.getHourIn12hFormat(this._dueDate.getHours())}:${this._dueDate.getMinutes()} ${utils.getTimePeriod(this._dueDate.getHours())}"` : ``}/>
                           <input
                             class="timestamp"
                             type="hidden"
