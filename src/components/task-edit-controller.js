@@ -9,6 +9,19 @@ export default class TaskEditController {
     this._tasksContainer = taskboardContainer.querySelector(`.board__tasks`);
   }
 
+  _toggleDateStatus(editedTask) {
+    const dateToggleElement = editedTask.getElement().querySelector(`.card__dates`);
+    const statusElement = dateToggleElement.querySelector(`.card__date-status`);
+    const deadlineFieldElement = editedTask.getElement().querySelector(`.card__date-deadline`);
+    const dateToggleElementClickHandler = () => {
+      deadlineFieldElement.style.display = (deadlineFieldElement.style.display === `none`) ? `flex` : `none`;
+      statusElement.innerHTML = (statusElement.innerHTML === `no`) ? `yes` : `no`;
+      return (statusElement.innerHTML !== `no`);
+
+    };
+    dateToggleElement.addEventListener(`click`, dateToggleElementClickHandler);
+  }
+
   _changeColor(editedTask) {
     const colorBoxElementClickHandler = (evt) => {
       if (evt.target.name === `color`) {
@@ -68,6 +81,7 @@ export default class TaskEditController {
         article.replaceWith(taskEdit.getElement());
         this._changeColor(taskEdit);
         this._changeHashtags(taskEdit);
+        this._toggleDateStatus(taskEdit);
 
         const escKeyDownHandler = (e) => {
           if (e.key === `Escape` || e.key === `Esc`) {
