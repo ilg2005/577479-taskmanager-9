@@ -29,10 +29,13 @@ export default class TaskEditController {
 
     const hashtagsInputElementKeydownHandler = (evt) => {
       if (evt.key === `Space` || evt.keyCode === 32) {
-        const newHashtag = new Hashtag(hashtagsInputElement.value, hashtagsInputElement, editedTask);
+        const striptags = require(`striptags`);
+        const hashtagInput = hashtagsInputElement.value;
+        const strippedHashtag = striptags(hashtagInput).trim();
+        const newHashtag = new Hashtag(strippedHashtag, hashtagsInputElement, editedTask);
         if (newHashtag._validateHashtag()) {
           utils.render(hashtagsListElement, newHashtag.getElement(), `beforeend`);
-          editedTask._tags.add(hashtagsInputElement.value.trim());
+          editedTask._tags.add(strippedHashtag);
           hashtagsInputElement.value = ``;
         }
       } else {

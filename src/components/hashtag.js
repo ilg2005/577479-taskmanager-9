@@ -3,7 +3,7 @@ import AbstractComponent from "./abstract-component.js";
 export default class Hashtag extends AbstractComponent {
   constructor(tag, container, editedTask) {
     super();
-    this._tag = tag.trim();
+    this._tag = tag;
     this._container = container;
     this._task = editedTask;
     this._tagsNumber = this._task._tags.size;
