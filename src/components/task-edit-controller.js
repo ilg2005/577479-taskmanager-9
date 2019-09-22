@@ -25,8 +25,6 @@ export default class TaskEditController {
     const favoritesBtnElementClickHandler = () => {
       favoritesBtnElement.classList.toggle(`card__btn--disabled`);
       editedTask._isFavorite = (!favoritesBtnElement.classList.contains(`card__btn--disabled`));
-
-      console.log(editedTask._isFavorite);
     };
     favoritesBtnElement.addEventListener(`click`, favoritesBtnElementClickHandler);
   }
@@ -156,7 +154,7 @@ export default class TaskEditController {
           TASKS[article.id].tags = entry.tags;
 
           task._isFavorite = entry.isFavorite;
-          TASKS[article.id]._isFavorite = entry.isFavorite;
+          TASKS[article.id].isFavorite = entry.isFavorite;
 
           if (!entry.dueDate) {
             task._dueDate = null;
