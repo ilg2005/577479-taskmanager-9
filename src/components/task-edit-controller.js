@@ -142,6 +142,18 @@ export default class TaskEditController {
             tags: new Set(formData.getAll(`hashtag`)),
             dueDate: formData.get(`date`),
             isFavorite: taskEdit._isFavorite,
+            repeatingDays: formData.getAll(`repeat`).reduce((acc, it) => {
+              acc[it] = true;
+              return acc;
+            }, {
+              'mo': false,
+              'tu': false,
+              'we': false,
+              'th': false,
+              'fr': false,
+              'sa': false,
+              'su': false,
+            }),
           };
 
           task._color = entry.color;
@@ -155,6 +167,10 @@ export default class TaskEditController {
 
           task._isFavorite = entry.isFavorite;
           TASKS[article.id].isFavorite = entry.isFavorite;
+
+          task._repeatingDays = entry.repeatingDays;
+          TASKS[article.id].repeatingDays = entry.repeatingDays;
+
 
           if (!entry.dueDate) {
             task._dueDate = null;
