@@ -3,10 +3,21 @@ import {TASKS} from "./data.js";
 import Task from "./task.js";
 import {utils} from "./utils.js";
 import Hashtag from "./hashtag.js";
+import TaskboardController from "./taskboard-controller";
+import TaskboardContainer from "./taskboard-container";
 
 export default class TaskEditController {
   constructor(taskboardContainer) {
     this._tasksContainer = taskboardContainer.querySelector(`.board__tasks`);
+  }
+
+  _rerenderBoard() {
+    utils.unrender(this._tasksContainer.parentElement);
+    const taskBoardContainer = new TaskboardContainer();
+    utils.render(document.querySelector(`.main`), taskBoardContainer.getElement(), `beforeend`);
+
+    const BoardController = new TaskboardController(document.querySelector(`.board`), TASKS);
+    BoardController.init();
   }
 
   _toggleFavorites(editedTask) {
@@ -156,12 +167,16 @@ export default class TaskEditController {
           }
 
           task.getElement().id = article.id;
-          taskEdit.getElement().replaceWith(task.getElement());
+          // taskEdit.getElement().replaceWith(task.getElement());
+          this._rerenderBoard();
+
+
           formElement.removeEventListener(`submit`, formSubmitHandler);
           this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
         };
 
         formElement.addEventListener(`submit`, formSubmitHandler);
+
       }
     };
     this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
