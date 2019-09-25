@@ -146,13 +146,13 @@ export default class TaskEditController {
               acc[it] = true;
               return acc;
             }, {
-              'mo': false,
-              'tu': false,
-              'we': false,
-              'th': false,
-              'fr': false,
-              'sa': false,
-              'su': false,
+              Mo: false,
+              Tu: false,
+              We: false,
+              Th: false,
+              Fr: false,
+              Sa: false,
+              Su: false,
             }),
           };
 
@@ -170,7 +170,6 @@ export default class TaskEditController {
 
           task._repeatingDays = entry.repeatingDays;
           TASKS[article.id].repeatingDays = entry.repeatingDays;
-
 
           if (!entry.dueDate) {
             task._dueDate = null;
