@@ -47,14 +47,14 @@ export default class TaskEdit extends Task {
                             class="card__date"
                             type="text"
                             placeholder=""
-                            name=""
+                            name="date"
                             ${this._dueDate ?
     `value="${this._dueDate.getDate()} ${utils.MONTHS[this._dueDate.getMonth()]}"` : ``}/>
                           <input
                             class="timestamp"
                             type="hidden"
                             placeholder=""
-                            name="data"
+                            name="timestamp"
                             value="${this._dueDate}"
                           />
                         </label>

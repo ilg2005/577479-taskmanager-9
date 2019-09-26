@@ -38,6 +38,7 @@ export default class TaskEditController {
     const dateStatusElement = dateElement.querySelector(`.card__date-status`);
     const repeatToggleElement = dateElement.querySelector(`.card__repeat-toggle`);
     const repeatStatusElement = dateElement.querySelector(`.card__repeat-status`);
+    const cardDateElement = dateElement.querySelector(`.card__date`);
 
     const deadlineFieldElement = editedTask.getElement().querySelector(`.card__date-deadline`);
     const repeatFieldElement = editedTask.getElement().querySelector(`.card__repeat-days`);
@@ -77,14 +78,22 @@ export default class TaskEditController {
         editedTask.getElement().classList.remove(`card--repeat`);
       }
     };
+
+    const cardDateElementClickHandler = () => {
+      flatpickr(cardDateElement, {
+        altInput: true,
+        allowInput: true,
+        altFormat: `j F`,
+        defaultDate: editedTask._dueDate,
+      });
+    };
+
     dateToggleElement.addEventListener(`click`, dateToggleElementClickHandler);
     repeatToggleElement.addEventListener(`click`, repeatToggleElementClickHandler);
-    flatpickr(editedTask.getElement().querySelector(`.card__date`), {
-      altInput: true,
-      allowInput: true,
-      altFormat: `j F`,
-      defaultDate: editedTask._dueDate,
-    });
+    cardDateElement.addEventListener(`click`, cardDateElementClickHandler);
+    // console.log(cardDateElement.value);
+
+
   }
 
   _changeColor(editedTask) {
