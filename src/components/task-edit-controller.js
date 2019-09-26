@@ -79,7 +79,12 @@ export default class TaskEditController {
     };
     dateToggleElement.addEventListener(`click`, dateToggleElementClickHandler);
     repeatToggleElement.addEventListener(`click`, repeatToggleElementClickHandler);
-    flatpickr(editedTask.getElement().querySelector(`.card__date`));
+    flatpickr(editedTask.getElement().querySelector(`.card__date`), {
+      altInput: true,
+      allowInput: true,
+      altFormat: `j F`,
+      defaultDate: editedTask._dueDate,
+    });
   }
 
   _changeColor(editedTask) {

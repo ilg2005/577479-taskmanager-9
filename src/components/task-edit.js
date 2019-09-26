@@ -54,7 +54,7 @@ export default class TaskEdit extends Task {
                             class="timestamp"
                             type="hidden"
                             placeholder=""
-                            name="date"
+                            name="data"
                             value="${this._dueDate}"
                           />
                         </label>
