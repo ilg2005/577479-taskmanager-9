@@ -5,6 +5,9 @@ import {utils} from "./utils.js";
 import Hashtag from "./hashtag.js";
 import TaskboardController from "./taskboard-controller";
 import TaskboardContainer from "./taskboard-container";
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
+import 'flatpickr/dist/themes/light.css';
 
 export default class TaskEditController {
   constructor(taskboardContainer) {
@@ -76,6 +79,7 @@ export default class TaskEditController {
     };
     dateToggleElement.addEventListener(`click`, dateToggleElementClickHandler);
     repeatToggleElement.addEventListener(`click`, repeatToggleElementClickHandler);
+    flatpickr(editedTask.getElement().querySelector(`.card__date`));
   }
 
   _changeColor(editedTask) {
