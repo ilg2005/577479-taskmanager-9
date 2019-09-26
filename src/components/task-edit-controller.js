@@ -90,14 +90,20 @@ export default class TaskEditController {
         altFormat: `j F`,
         defaultDate: editedTask._dueDate,
       });
+
+      const cardDateElementChangeHandler = () => {
+        editedTask.getElement().classList.remove(`card--deadline`);
+        if (new Date(cardDateElement.value) <= new Date()) {
+          editedTask.getElement().classList.add(`card--deadline`);
+        }
+      };
+
+      cardDateElement.addEventListener(`change`, cardDateElementChangeHandler);
     };
 
     dateToggleElement.addEventListener(`click`, dateToggleElementClickHandler);
     repeatToggleElement.addEventListener(`click`, repeatToggleElementClickHandler);
     cardDateElement.addEventListener(`click`, cardDateElementClickHandler);
-    // console.log(cardDateElement.value);
-
-
   }
 
   _changeColor(editedTask) {
