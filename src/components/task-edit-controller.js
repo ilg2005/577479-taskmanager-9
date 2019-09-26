@@ -56,7 +56,7 @@ export default class TaskEditController {
         repeatStatusElement.innerHTML = `no`;
       }
       editedTask._dueDate = (dateStatusElement.innerHTML === `no`) ? null : currentDeadline;
-      editedTask.getElement().querySelector(`.timestamp`).value = (dateStatusElement.innerHTML === `no`) ? null : currentDeadline;
+      editedTask.getElement().querySelector(`.card__date`).value = (dateStatusElement.innerHTML === `no`) ? null : currentDeadline;
     };
 
     const repeatToggleElementClickHandler = () => {
