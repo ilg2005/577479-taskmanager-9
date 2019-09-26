@@ -29,21 +29,39 @@ export default class TaskEditController {
     favoritesBtnElement.addEventListener(`click`, favoritesBtnElementClickHandler);
   }
 
-  _toggleDateStatus(editedTask) {
+  _toggleDateRepeatStatus(editedTask) {
     const dateElement = editedTask.getElement().querySelector(`.card__dates`);
     const dateToggleElement = dateElement.querySelector(`.card__date-deadline-toggle`);
-    const statusElement = dateElement.querySelector(`.card__date-status`);
+    const dateStatusElement = dateElement.querySelector(`.card__date-status`);
+    const repeatToggleElement = dateElement.querySelector(`.card__repeat-toggle`);
+    const repeatStatusElement = dateElement.querySelector(`.card__repeat-status`);
+
     const deadlineFieldElement = editedTask.getElement().querySelector(`.card__date-deadline`);
+    const repeatFieldElement = editedTask.getElement().querySelector(`.card__repeat-days`);
 
     const currentDeadline = editedTask._dueDate;
     const dateToggleElementClickHandler = () => {
       deadlineFieldElement.classList.toggle(`hide`);
-      statusElement.innerHTML = (statusElement.innerHTML === `no`) ? `yes` : `no`;
-      editedTask._dueDate = (statusElement.innerHTML === `no`) ? null : currentDeadline;
-      editedTask.getElement().querySelector(`.timestamp`).value = (statusElement.innerHTML === `no`) ? null : currentDeadline;
-      return (statusElement.innerHTML !== `no`);
+      dateStatusElement.innerHTML = (dateStatusElement.innerHTML === `no`) ? `yes` : `no`;
+      if (dateStatusElement.innerHTML === `yes`) {
+        repeatFieldElement.classList.add(`hide`);
+        repeatStatusElement.innerHTML = `no`;
+      }
+      editedTask._dueDate = (dateStatusElement.innerHTML === `no`) ? null : currentDeadline;
+      editedTask.getElement().querySelector(`.timestamp`).value = (dateStatusElement.innerHTML === `no`) ? null : currentDeadline;
+    };
+
+    const repeatToggleElementClickHandler = () => {
+      repeatFieldElement.classList.toggle(`hide`);
+      repeatStatusElement.innerHTML = (repeatStatusElement.innerHTML === `no`) ? `yes` : `no`;
+      if (repeatStatusElement.innerHTML === `yes`) {
+        deadlineFieldElement.classList.add(`hide`);
+        dateStatusElement.innerHTML = `no`;
+      }
+
     };
     dateToggleElement.addEventListener(`click`, dateToggleElementClickHandler);
+    repeatToggleElement.addEventListener(`click`, repeatToggleElementClickHandler);
   }
 
   _changeColor(editedTask) {
@@ -105,7 +123,7 @@ export default class TaskEditController {
         article.replaceWith(taskEdit.getElement());
         this._changeColor(taskEdit);
         this._changeHashtags(taskEdit);
-        this._toggleDateStatus(taskEdit);
+        this._toggleDateRepeatStatus(taskEdit);
         this._toggleFavorites(taskEdit);
 
         const escKeyDownHandler = (e) => {
