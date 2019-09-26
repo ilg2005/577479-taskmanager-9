@@ -30,8 +30,9 @@ export default class TaskEditController {
   }
 
   _toggleDateStatus(editedTask) {
-    const dateToggleElement = editedTask.getElement().querySelector(`.card__dates`);
-    const statusElement = dateToggleElement.querySelector(`.card__date-status`);
+    const dateElement = editedTask.getElement().querySelector(`.card__dates`);
+    const dateToggleElement = dateElement.querySelector(`.card__date-deadline-toggle`);
+    const statusElement = dateElement.querySelector(`.card__date-status`);
     const deadlineFieldElement = editedTask.getElement().querySelector(`.card__date-deadline`);
 
     const currentDeadline = editedTask._dueDate;
