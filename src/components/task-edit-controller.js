@@ -39,6 +39,10 @@ export default class TaskEditController {
     const deadlineFieldElement = editedTask.getElement().querySelector(`.card__date-deadline`);
     const repeatFieldElement = editedTask.getElement().querySelector(`.card__repeat-days`);
 
+    if (repeatStatusElement.innerHTML === `no`) {
+      repeatFieldElement.classList.add(`hide`);
+    }
+
     const currentDeadline = editedTask._dueDate;
     const dateToggleElementClickHandler = () => {
       deadlineFieldElement.classList.toggle(`hide`);
