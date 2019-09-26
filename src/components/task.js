@@ -49,7 +49,7 @@ export default class Task extends AbstractComponent {
                       <div class="card__date-deadline">
                         <p class="card__input-deadline-wrap">
                           <span class="card__date">${this._dueDate.getDate()} ${utils.MONTHS[this._dueDate.getMonth()]}</span>
-                          <span class="card__time">${utils.getHourIn12hFormat(this._dueDate.getHours())}:${this._dueDate.getMinutes()} ${utils.getTimePeriod(this._dueDate.getHours())}</span>
+                         
                         </p>
                       </div>
                     </div>` : ``}

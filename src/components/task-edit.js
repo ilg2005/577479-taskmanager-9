@@ -49,7 +49,7 @@ export default class TaskEdit extends Task {
                             placeholder=""
                             name=""
                             ${this._dueDate ?
-    `value="${this._dueDate.getDate()} ${utils.MONTHS[this._dueDate.getMonth()]} ${utils.getHourIn12hFormat(this._dueDate.getHours())}:${this._dueDate.getMinutes()} ${utils.getTimePeriod(this._dueDate.getHours())}"` : ``}/>
+    `value="${this._dueDate.getDate()} ${utils.MONTHS[this._dueDate.getMonth()]}"` : ``}/>
                           <input
                             class="timestamp"
                             type="hidden"
