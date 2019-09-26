@@ -57,8 +57,18 @@ export default class TaskEditController {
       if (repeatStatusElement.innerHTML === `yes`) {
         deadlineFieldElement.classList.add(`hide`);
         dateStatusElement.innerHTML = `no`;
+        Object.keys(editedTask._repeatingDays).map((day) => {
+          if (editedTask._repeatingDays[day]) {
+            repeatFieldElement.querySelector(`#repeat-${day}-4`).setAttribute(`checked`, `checked`);
+          }
+        });
+        editedTask.getElement().classList.add(`card--repeat`);
+      } else {
+        repeatFieldElement.querySelectorAll(`input`).forEach((input)=> {
+          input.removeAttribute(`checked`);
+        });
+        editedTask.getElement().classList.remove(`card--repeat`);
       }
-
     };
     dateToggleElement.addEventListener(`click`, dateToggleElementClickHandler);
     repeatToggleElement.addEventListener(`click`, repeatToggleElementClickHandler);
