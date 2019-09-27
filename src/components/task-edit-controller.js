@@ -24,12 +24,21 @@ export default class TaskEditController {
   }
 
   _toggleFavorites(editedTask) {
-    const favoritesBtnElement = editedTask.getElement().querySelector(`.card__btn--favorites `);
+    const favoritesBtnElement = editedTask.getElement().querySelector(`.card__btn--favorites`);
     const favoritesBtnElementClickHandler = () => {
       favoritesBtnElement.classList.toggle(`card__btn--disabled`);
       editedTask._isFavorite = (!favoritesBtnElement.classList.contains(`card__btn--disabled`));
     };
     favoritesBtnElement.addEventListener(`click`, favoritesBtnElementClickHandler);
+  }
+
+  _toggleArchived(editedTask) {
+    const archiveBtnElement = editedTask.getElement().querySelector(`.card__btn--archive`);
+    const archiveBtnElementClickHandler = () => {
+      archiveBtnElement.classList.toggle(`card__btn--disabled`);
+      editedTask._isArchive = (!archiveBtnElement.classList.contains(`card__btn--disabled`));
+    };
+    archiveBtnElement.addEventListener(`click`, archiveBtnElementClickHandler);
   }
 
   _toggleDateRepeatStatus(editedTask) {
@@ -179,6 +188,7 @@ export default class TaskEditController {
         this._changeHashtags(taskEdit);
         this._toggleDateRepeatStatus(taskEdit);
         this._toggleFavorites(taskEdit);
+        this._toggleArchived(taskEdit);
 
         const escKeyDownHandler = (e) => {
           if (e.key === `Escape` || e.key === `Esc`) {
@@ -189,7 +199,6 @@ export default class TaskEditController {
             }
           }
         };
-        //    this._tasksContainer.removeEventListener(`click`, tasksContainerClickHandler);
 
         document.addEventListener(`keydown`, escKeyDownHandler);
 
@@ -216,6 +225,7 @@ export default class TaskEditController {
             tags: new Set(formData.getAll(`hashtag`)),
             dueDate: formData.get(`date`),
             isFavorite: taskEdit._isFavorite,
+            isArchive: taskEdit._isArchive,
             repeatingDays: formData.getAll(`repeat`).reduce((acc, it) => {
               acc[it] = true;
               return acc;
@@ -241,6 +251,9 @@ export default class TaskEditController {
 
           task._isFavorite = entry.isFavorite;
           TASKS[article.id].isFavorite = entry.isFavorite;
+
+          task._isArchive = entry.isArchive;
+          TASKS[article.id].isArchive = entry.isArchive;
 
           task._repeatingDays = entry.repeatingDays;
           TASKS[article.id].repeatingDays = entry.repeatingDays;
