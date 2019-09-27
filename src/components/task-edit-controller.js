@@ -45,9 +45,6 @@ export default class TaskEditController {
 
     if (dateStatusElement.innerHTML === `no`) {
       deadlineFieldElement.classList.add(`hide`);
-    } else {
-      repeatStatusElement.innerHTML = `no`;
-      repeatFieldElement.classList.add(`hide`);
     }
 
     if (repeatStatusElement.innerHTML === `no`) {
