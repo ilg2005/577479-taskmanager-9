@@ -158,7 +158,9 @@ export default class TaskEditController {
 
   _closeEditing(editedCardElement) {
     const task = new Task(TASKS[editedCardElement.id]);
-    editedCardElement.replaceWith(task.getElement());
+    const taskElement = task.getElement();
+    taskElement.setAttribute(`id`, editedCardElement.id);
+    editedCardElement.replaceWith(taskElement);
   }
 
   _editTask() {
