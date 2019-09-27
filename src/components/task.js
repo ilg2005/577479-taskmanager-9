@@ -48,7 +48,8 @@ export default class Task extends AbstractComponent {
                     ${this._dueDate ? `<div class="card__dates">
                       <div class="card__date-deadline">
                         <p class="card__input-deadline-wrap">
-                          <span class="card__date">${this._dueDate.getDate()} ${utils.MONTHS[this._dueDate.getMonth()]}</span>
+                        ${this._dueDate.getDate() ?
+    `<span class="card__date">${this._dueDate.getDate()} ${utils.MONTHS[this._dueDate.getMonth()]}</span>` : ``}
                          
                         </p>
                       </div>
