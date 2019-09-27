@@ -69,6 +69,7 @@ export default class TaskEditController {
         repeatStatusElement.innerHTML = `no`;
       }
       editedTask._dueDate = (dateStatusElement.innerHTML === `no`) ? null : currentDeadline;
+      editedTask.getElement().querySelector(`.timestamp`).value = (dateStatusElement.innerHTML === `no`) ? null : currentDeadline;
       editedTask.getElement().querySelector(`.card__date`).value = (dateStatusElement.innerHTML === `no`) ? null : currentDeadline;
     };
 
@@ -105,6 +106,7 @@ export default class TaskEditController {
         if (new Date(cardDateElement.value) <= new Date()) {
           editedTask.getElement().classList.add(`card--deadline`);
         }
+        editedTask.getElement().querySelector(`.timestamp`).value = cardDateElement.value;
       };
 
       cardDateElement.addEventListener(`change`, cardDateElementChangeHandler);
@@ -223,7 +225,7 @@ export default class TaskEditController {
             description: formData.get(`text`),
             color: formData.get(`color`),
             tags: new Set(formData.getAll(`hashtag`)),
-            dueDate: formData.get(`date`),
+            dueDate: formData.get(`timestamp`),
             isFavorite: taskEdit._isFavorite,
             isArchive: taskEdit._isArchive,
             repeatingDays: formData.getAll(`repeat`).reduce((acc, it) => {
