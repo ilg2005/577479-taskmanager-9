@@ -192,6 +192,7 @@ export default class TaskEditController {
           });
 
         const formElement = taskEdit.getElement().querySelector(`.card__form`);
+        const formDeleteElement = taskEdit.getElement().querySelector(`.card__delete`);
 
         const formSubmitHandler = (ev) => {
           ev.preventDefault();
@@ -249,7 +250,13 @@ export default class TaskEditController {
           this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
         };
 
+        const formDeleteElementClickHandler = () => {
+          taskEdit.getElement().replaceWith(article);
+          this._tasksContainer.addEventListener(`click`, tasksContainerClickHandler);
+        };
+
         formElement.addEventListener(`submit`, formSubmitHandler);
+        formDeleteElement.addEventListener(`click`, formDeleteElementClickHandler);
 
       }
     };
