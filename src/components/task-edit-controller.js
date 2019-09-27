@@ -156,13 +156,23 @@ export default class TaskEditController {
     hashtagsInputElement.addEventListener(`keydown`, hashtagsInputElementKeydownHandler);
   }
 
+  _closeEditing(editedCardElement) {
+    const task = new Task(TASKS[editedCardElement.id]);
+    editedCardElement.replaceWith(task.getElement());
+  }
+
   _editTask() {
     const tasksContainerClickHandler = (evt) => {
       if (evt.target.className === `card__btn card__btn--edit`) {
+        const editedTaskElement = document.querySelector(`.card--edit`);
+        if (editedTaskElement) {
+          this._closeEditing(editedTaskElement);
+        }
         const taskIndex = evt.target.closest(`article`).id;
         const taskEdit = new TaskEdit(TASKS[taskIndex]);
         const article = document.querySelector(`[id="${taskIndex}"]`);
         article.replaceWith(taskEdit.getElement());
+        taskEdit.getElement().setAttribute(`id`, taskIndex);
         this._changeColor(taskEdit);
         this._changeHashtags(taskEdit);
         this._toggleDateRepeatStatus(taskEdit);
@@ -177,7 +187,7 @@ export default class TaskEditController {
             }
           }
         };
-        this._tasksContainer.removeEventListener(`click`, tasksContainerClickHandler);
+        //    this._tasksContainer.removeEventListener(`click`, tasksContainerClickHandler);
 
         document.addEventListener(`keydown`, escKeyDownHandler);
 
