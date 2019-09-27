@@ -4,7 +4,7 @@ export const utils = {
 
   checkRepeats: (daysWithRepeats) => Object.keys(daysWithRepeats).some((day) => daysWithRepeats[day]) ? `repeat` : ``,
 
-  checkOverdue: (deadline) => (deadline <= new Date()) ? `card--deadline` : ``,
+  checkOverdue: (deadline) => (deadline <= new Date() && deadline !== null) ? `card--deadline` : ``,
   hideElement: (element) => element.classList.add(`hidden`),
 
   createElement: (template) => {
