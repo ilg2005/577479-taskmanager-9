@@ -1,7 +1,7 @@
 import {utils} from "./utils.js";
-import AbstractComponent from "./abstract-component";
+import Abstract from "./abstract";
 
-export default class Task extends AbstractComponent {
+export default class Task extends Abstract {
   constructor({description, dueDate, tags, repeatingDays, color = `black`, isFavorite, isArchive}) {
     super();
     this._color = color;

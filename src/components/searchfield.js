@@ -1,6 +1,6 @@
-import AbstractComponent from "./abstract-component";
+import Abstract from "./abstract";
 
-export default class SearchField extends AbstractComponent {
+export default class SearchField extends Abstract {
   getTemplate() {
     return `<section class="main__search search container">
         <input

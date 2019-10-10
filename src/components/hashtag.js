@@ -1,6 +1,6 @@
-import AbstractComponent from "./abstract-component.js";
+import Abstract from "./abstract";
 
-export default class Hashtag extends AbstractComponent {
+export default class Hashtag extends Abstract {
   constructor(tag, container, editedTask) {
     super();
     this._tag = tag;

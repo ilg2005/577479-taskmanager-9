@@ -1,6 +1,6 @@
-import AbstractComponent from "../abstract-component.js";
+import Abstract from "../abstract";
 
-export default class CardTextarea extends AbstractComponent {
+export default class CardTextarea extends Abstract {
   constructor(description = `This is example of new task, you can add picture, set date and time, add tags.`) {
     super();
     this._description = description;

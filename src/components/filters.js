@@ -1,6 +1,6 @@
-import AbstractComponent from "./abstract-component.js";
+import Abstract from "./abstract";
 
-export default class Filters extends AbstractComponent {
+export default class Filters extends Abstract {
   constructor(tasksArray) {
     super();
     this._filtersCounts = this.getCountsForFilters(tasksArray);

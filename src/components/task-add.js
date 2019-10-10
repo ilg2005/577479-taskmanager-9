@@ -1,11 +1,11 @@
-import AbstractComponent from "./abstract-component.js";
+import Abstract from "./abstract.js";
 import CardControl from "./card/card-control.js";
 import CardColorBar from "./card/card-color-bar.js";
 import CardTextarea from "./card/card-textarea.js";
 import CardSettings from "./card/card-settings.js";
 import CardBtns from "./card/card-btns.js";
 
-export default class TaskAdd extends AbstractComponent {
+export default class TaskAdd extends Abstract {
   constructor() {
     super();
     this._cardControl = new CardControl();

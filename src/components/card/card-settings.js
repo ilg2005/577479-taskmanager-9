@@ -1,7 +1,7 @@
-import AbstractComponent from "../abstract-component.js";
+import Abstract from "../abstract.js";
 import {utils} from "../utils.js";
 
-export default class CardSettings extends AbstractComponent {
+export default class CardSettings extends Abstract {
   constructor(dueDate = ``, repeatingDays = {}, tags = ``, color = `black`) {
     super();
     this._dueDate = dueDate;

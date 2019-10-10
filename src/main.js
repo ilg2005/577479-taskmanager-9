@@ -3,7 +3,7 @@ import SearchField from "./components/searchfield.js";
 import Filters from "./components/filters.js";
 import TaskboardContainer from "./components/taskboard-container.js";
 import {TASKS} from "./components/data.js";
-import TaskboardController from "./components/taskboard-controller.js";
+import TaskboardController from "./components/controllers/taskboard-controller.js";
 import {utils} from "./components/utils.js";
 import TaskAdd from "./components/task-add";
 

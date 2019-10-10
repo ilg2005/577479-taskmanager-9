@@ -1,10 +1,10 @@
-import TaskEdit from "./task-edit.js";
-import {TASKS} from "./data.js";
-import Task from "./task.js";
-import {utils} from "./utils.js";
-import Hashtag from "./hashtag.js";
+import TaskEdit from "../task-edit";
+import {TASKS} from "../data";
+import Task from "../task";
+import {utils} from "../utils";
+import Hashtag from "../hashtag";
 import TaskboardController from "./taskboard-controller";
-import TaskboardContainer from "./taskboard-container";
+import TaskboardContainer from "../taskboard-container";
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import 'flatpickr/dist/themes/light.css';

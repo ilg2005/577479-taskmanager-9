@@ -1,6 +1,6 @@
-import AbstractComponent from "../abstract-component.js";
+import Abstract from "../abstract";
 
-export default class CardControl extends AbstractComponent {
+export default class CardControl extends Abstract {
   getTemplate() {
     return `
                 <div class="card__control">

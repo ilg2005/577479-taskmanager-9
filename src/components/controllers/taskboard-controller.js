@@ -1,8 +1,8 @@
-import {utils} from "./utils.js";
-import Task from "./task.js";
-import LoadMoreBtn from "./load-more-btn.js";
-import NoTasks from "./no-tasks.js";
-import Sort from "./sort.js";
+import {utils} from "../utils.js";
+import Task from "../task.js";
+import LoadMoreBtn from "../load-more-btn.js";
+import NoTasks from "../no-tasks.js";
+import Sort from "../sort.js";
 import TaskEditController from "./task-edit-controller.js";
 
 export default class TaskboardController {

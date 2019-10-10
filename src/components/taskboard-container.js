@@ -1,6 +1,6 @@
-import AbstractComponent from "./abstract-component";
+import Abstract from "./abstract";
 
-export default class TaskboardContainer extends AbstractComponent {
+export default class TaskboardContainer extends Abstract {
   getTemplate() {
     return `<section class="board container">
         

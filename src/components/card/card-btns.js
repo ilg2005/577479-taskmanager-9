@@ -1,6 +1,6 @@
-import AbstractComponent from "../abstract-component.js";
+import Abstract from "../abstract";
 
-export default class CardBtns extends AbstractComponent {
+export default class CardBtns extends Abstract {
   getTemplate() {
     return `<div class="card__status-btns">
                   <button class="card__save" type="submit">save</button>
