@@ -32,6 +32,7 @@ const addNewTask = (addElement) => {
   const addNewTaskElementClickListener = () => {
     const newTaskDefault = new CardController(TASKS[2]);
     newTaskDefault._renderCard(taskboardContainerElement);
+
   };
   addElement.addEventListener(`click`, addNewTaskElementClickListener);
 };

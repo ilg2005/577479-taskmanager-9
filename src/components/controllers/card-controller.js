@@ -41,6 +41,8 @@ export default class CardController extends Abstract {
     newCardColors.render(cardSettingsElement);
 
     newCardWrapper.render(container, `afterbegin`);
+    newCardColors._changeColor(document.querySelector(`[data-card]`));
   }
+
 
 }

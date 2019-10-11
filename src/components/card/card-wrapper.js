@@ -7,7 +7,7 @@ export default class CardWrapper extends Abstract {
   }
 
   getTemplate() {
-    return `<article class="card card--edit card--${this._task.color}">
+    return `<article class="card card--edit card--${this._task.color}" data-card="${this._task.id}">
                 <form class="card__form" method="get">
                 <div class="card__inner">
                     

@@ -7,6 +7,19 @@ export default class CardColors extends Abstract {
     this._color = task.color;
   }
 
+  _changeColor(cardElement) {
+    const colorBoxElementClickHandler = (evt) => {
+      if (evt.target.name === `color`) {
+        const newColor = `card--${evt.target.value}`;
+        for (const color of utils.COLORS) {
+          cardElement.classList.remove(`card--${color}`);
+        }
+        cardElement.classList.add(newColor);
+      }
+    };
+    cardElement.querySelector(`.card__colors-inner`).addEventListener(`click`, colorBoxElementClickHandler);
+  }
+
   getTemplate() {
     return `<div class="card__colors-inner">
                     <h3 class="card__colors-title">Color</h3>
