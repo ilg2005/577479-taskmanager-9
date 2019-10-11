@@ -2,9 +2,9 @@ import Abstract from "../abstract.js";
 import {utils} from "../utils.js";
 
 export default class CardColors extends Abstract {
-  constructor(color = `black`) {
+  constructor(task) {
     super();
-    this._color = color;
+    this._color = task.color;
   }
 
   getTemplate() {
