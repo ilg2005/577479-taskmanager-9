@@ -8,5 +8,7 @@ export default class TaskAddController extends Abstract {
     const renderedWrapper = newCardWrapper.render(container);
     console.log(renderedWrapper);
 
+
+
   }
 }
