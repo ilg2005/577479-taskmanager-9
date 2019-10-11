@@ -32,7 +32,7 @@ boardController.init();
 const addNewTask = (addElement) => {
   const addNewTaskElementClickListener = () => {
     const newTaskDefault = new TaskAddController();
-    newTaskDefault._combineCard(taskboardContainerElement);
+    const newCombinedCard = newTaskDefault._combineCard(taskboardContainerElement);
     /*utils.render(taskboardContainerElement, newTaskDefault.getElement(), `afterbegin`);*/
   };
   addElement.addEventListener(`click`, addNewTaskElementClickListener);
