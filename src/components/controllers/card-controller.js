@@ -9,8 +9,8 @@ import CardHashtags from "../card/card-hashtags";
 import CardColors from "../card/card-colors";
 import CardBtns from "../card/card-btns";
 
-export default class TaskAddController extends Abstract {
-  _combineCard(container) {
+export default class CardController extends Abstract {
+  _renderCard(container) {
     const newCardWrapper = new CardWrapper();
     const newCardControl = new CardControl();
     const newCardColorBar = new CardColorBar();

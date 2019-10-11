@@ -5,8 +5,7 @@ import TaskboardContainer from "./components/taskboard-container.js";
 import {TASKS} from "./components/data.js";
 import TaskboardController from "./components/controllers/taskboard-controller.js";
 import {utils} from "./components/utils.js";
-import TaskAdd from "./components/card/card-wrapper";
-import TaskAddController from "./components/controllers/task-add-controller";
+import CardController from "./components/controllers/card-controller";
 
 const mainElement = document.querySelector(`.main`);
 const menuContainerElement = document.querySelector(`.main__control`);
@@ -31,9 +30,8 @@ boardController.init();
 
 const addNewTask = (addElement) => {
   const addNewTaskElementClickListener = () => {
-    const newTaskDefault = new TaskAddController();
-    const newCombinedCard = newTaskDefault._combineCard(taskboardContainerElement);
-    /*utils.render(taskboardContainerElement, newTaskDefault.getElement(), `afterbegin`);*/
+    const newTaskDefault = new CardController();
+    newTaskDefault._renderCard(taskboardContainerElement);
   };
   addElement.addEventListener(`click`, addNewTaskElementClickListener);
 };
