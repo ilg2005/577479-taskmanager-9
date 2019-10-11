@@ -26,6 +26,6 @@ export default class CardColors extends Abstract {
                         >black</label
                       >`).join(``)}
                     </div>
-                  </div>`;
+               </div>`;
   }
 }

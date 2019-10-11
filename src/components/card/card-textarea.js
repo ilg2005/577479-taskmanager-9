@@ -15,6 +15,6 @@ export default class CardTextarea extends Abstract {
                       name="text"
                     >${this._description}</textarea>
                   </label>
-                </div>`;
+             </div>`;
   }
 }

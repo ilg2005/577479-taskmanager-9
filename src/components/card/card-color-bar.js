@@ -6,6 +6,6 @@ export default class CardColorBar extends Abstract {
                   <svg class="card__color-bar-wave" width="100%" height="10">
                     <use xlink:href="#wave"></use>
                   </svg>
-                </div>`;
+             </div>`;
   }
 }
