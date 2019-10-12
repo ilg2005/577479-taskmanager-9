@@ -1,5 +1,4 @@
 import Abstract from "../abstract.js";
-import Hashtag from "../hashtag";
 import {utils} from "../utils";
 
 export default class CardHashtags extends Abstract {
@@ -58,7 +57,7 @@ export default class CardHashtags extends Abstract {
 
   _changeHashtags() {
     const hashtagsElement = this.getElement();
-    const hashtagsListElement = hashtagsElement.querySelector(`.card__hashtag-list`);
+    // const hashtagsListElement = hashtagsElement.querySelector(`.card__hashtag-list`);
     const hashtagsInputElement = hashtagsElement.querySelector(`.card__hashtag-input`);
 
     const hashtagsInputElementKeydownHandler = (evt) => {
@@ -69,7 +68,6 @@ export default class CardHashtags extends Abstract {
         const strippedHashtag = striptags(hashtagInput).trim();
         if (this._validateHashtag(strippedHashtag)) {
           this._tags.add(strippedHashtag);
-          const container = this.getElement().closest(`.card__details`);
 
           hashtagsInputElement.value = ``;
         }
