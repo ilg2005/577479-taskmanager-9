@@ -7,10 +7,57 @@ export default class CardHashtags extends Abstract {
     super();
     this._task = task;
     this._tags = task.tags;
+    this._container = this.getElement().querySelector(`input`);
+    this._tagsNumber = task.tags.size;
+    this._changeHashtags();
   }
 
-  _changeHashtags(cardElement) {
-    const hashtagsElement = cardElement.querySelector(`.card__hashtag`);
+  _validateHashtag(hashtag) {
+    const MAX_HASHTAG_LENGTH = 16;
+    const MIN_HASHTAG_LENGTH = 3;
+    const MAX_HASHTAGS_NUMBER_PER_TASK = 5;
+
+    const checkTooLong = () => {
+      const hashtagChars = hashtag.split(``);
+      if (hashtagChars.length > MAX_HASHTAG_LENGTH) {
+        this._container.setCustomValidity(`Hashtag's maximum length should be 16 chars including #`);
+      }
+    };
+
+    const checkTooShort = () => {
+      const hashtagChars = hashtag.split(``);
+      if (hashtagChars.length < MIN_HASHTAG_LENGTH) {
+        this._container.setCustomValidity(`Hashtag's minimum length should be 3 chars including #`);
+      }
+    };
+
+    const checkHashtagsNumberPerTask = () => {
+      if (this._tagsNumber >= MAX_HASHTAGS_NUMBER_PER_TASK) {
+        this._container.setCustomValidity(`No more than 5 hashtags per task`);
+      }
+    };
+
+    const checkDoubleOccurrence = () => {
+      if (Array.from(this._task.tags).indexOf(hashtag) !== -1) {
+        this._container.setCustomValidity(`This tag already exists. Please, change it.`);
+      }
+    };
+
+    const hashtagValidate = () => {
+      checkTooLong();
+      checkTooShort();
+      checkDoubleOccurrence();
+      checkHashtagsNumberPerTask();
+    };
+
+    hashtagValidate();
+
+    return this._container.validity.valid;
+  }
+
+
+  _changeHashtags() {
+    const hashtagsElement = this.getElement();
     const hashtagsListElement = hashtagsElement.querySelector(`.card__hashtag-list`);
     const hashtagsInputElement = hashtagsElement.querySelector(`.card__hashtag-input`);
 
@@ -20,10 +67,10 @@ export default class CardHashtags extends Abstract {
         const striptags = require(`striptags`);
         const hashtagInput = hashtagsInputElement.value;
         const strippedHashtag = striptags(hashtagInput).trim();
-        const newHashtag = new Hashtag(strippedHashtag, hashtagsInputElement, this._task);
-        if (newHashtag._validateHashtag()) {
-          utils.render(hashtagsListElement, newHashtag.getElement(), `beforeend`);
+        if (this._validateHashtag(strippedHashtag)) {
           this._tags.add(strippedHashtag);
+          const container = this.getElement().closest(`.card__details`);
+
           hashtagsInputElement.value = ``;
         }
       } else {
