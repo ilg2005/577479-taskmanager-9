@@ -2,10 +2,10 @@ import Abstract from "../abstract.js";
 import {utils} from "../utils.js";
 
 export default class CardDates extends Abstract {
-  constructor(dueDate = ``, repeatingDays = {}) {
+  constructor(task) {
     super();
-    this._dueDate = dueDate;
-    this._repeatingDays = repeatingDays;
+    this._dueDate = task.dueDate;
+    this._repeatingDays = task.repeatingDays;
   }
 
   getTemplate() {

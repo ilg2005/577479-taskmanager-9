@@ -13,12 +13,12 @@ export default class CardController extends Abstract {
   constructor(task) {
     super();
     this._cardWrapper = new CardWrapper(task);
-    this._cardControl = new CardControl();
+    this._cardControl = new CardControl(task);
     this._cardColorBar = new CardColorBar();
-    this._cardTextarea = new CardTextarea();
+    this._cardTextarea = new CardTextarea(task);
     this._cardSettings = new CardSettings();
-    this._cardDates = new CardDates();
-    this._cardHashtags = new CardHashtags();
+    this._cardDates = new CardDates(task);
+    this._cardHashtags = new CardHashtags(task);
     this._cardColors = new CardColors(task);
     this._cardBtns = new CardBtns();
   }
@@ -44,6 +44,7 @@ export default class CardController extends Abstract {
 
   _changeCard() {
     this._cardColors._changeColor(document.querySelector(`[data-card]`));
+    this._cardHashtags._changeHashtags(document.querySelector(`[data-card]`));
   }
 
 }
