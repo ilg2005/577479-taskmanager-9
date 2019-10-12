@@ -10,39 +10,40 @@ import CardColors from "../card/card-colors";
 import CardBtns from "../card/card-btns";
 
 export default class CardController extends Abstract {
-  constructor(task = []) {
+  constructor(task) {
     super();
-    this._task = task;
+    this._cardWrapper = new CardWrapper(task);
+    this._cardControl = new CardControl();
+    this._cardColorBar = new CardColorBar();
+    this._cardTextarea = new CardTextarea();
+    this._cardSettings = new CardSettings();
+    this._cardDates = new CardDates();
+    this._cardHashtags = new CardHashtags();
+    this._cardColors = new CardColors(task);
+    this._cardBtns = new CardBtns();
   }
 
   _renderCard(container) {
-    const newCardWrapper = new CardWrapper(this._task);
-    const newCardControl = new CardControl();
-    const newCardColorBar = new CardColorBar();
-    const newCardTextarea = new CardTextarea();
-    const newCardSettings = new CardSettings();
-    const newCardDates = new CardDates();
-    const newCardHashtags = new CardHashtags();
-    const newCardColors = new CardColors(this._task);
-    const newCardBtns = new CardBtns();
+    const cardInnerWrapElement = this._cardWrapper.getElement().querySelector(`.card__inner`);
 
-    const cardInnerWrapElement = newCardWrapper.getElement().querySelector(`.card__inner`);
+    this._cardControl.render(cardInnerWrapElement);
+    this._cardColorBar.render(cardInnerWrapElement);
+    this._cardTextarea.render(cardInnerWrapElement);
+    this._cardSettings.render(cardInnerWrapElement);
+    this._cardBtns.render(cardInnerWrapElement);
 
-    newCardControl.render(cardInnerWrapElement);
-    newCardColorBar.render(cardInnerWrapElement);
-    newCardTextarea.render(cardInnerWrapElement);
-    newCardSettings.render(cardInnerWrapElement);
-    newCardBtns.render(cardInnerWrapElement);
-
-    const cardSettingsElement = newCardSettings.getElement();
+    const cardSettingsElement = this._cardSettings.getElement();
     const cardDetailsElement = cardSettingsElement.querySelector(`.card__details`);
-    newCardDates.render(cardDetailsElement);
-    newCardHashtags.render(cardDetailsElement);
-    newCardColors.render(cardSettingsElement);
 
-    newCardWrapper.render(container, `afterbegin`);
-    newCardColors._changeColor(document.querySelector(`[data-card]`));
+    this._cardDates.render(cardDetailsElement);
+    this._cardHashtags.render(cardDetailsElement);
+    this._cardColors.render(cardSettingsElement);
+
+    this._cardWrapper.render(container, `afterbegin`);
   }
 
+  _changeCard() {
+    this._cardColors._changeColor(document.querySelector(`[data-card]`));
+  }
 
 }
