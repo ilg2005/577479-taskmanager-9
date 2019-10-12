@@ -5,19 +5,19 @@ export default class CardColors extends Abstract {
   constructor(task) {
     super();
     this._color = task.color;
+    this._changeColor();
   }
 
-  _changeColor(cardElement) {
-    const colorBoxElementClickHandler = (evt) => {
-      if (evt.target.name === `color`) {
-        const newColor = `card--${evt.target.value}`;
-        for (const color of utils.COLORS) {
-          cardElement.classList.remove(`card--${color}`);
-        }
-        cardElement.classList.add(newColor);
+  _changeColor() {
+    this.getElement().addEventListener(`change`, (evt) => {
+      evt.preventDefault();
+      const target = evt.target;
+      const container = this.getElement().closest(`.card--${this._color}`);
+      if (container) {
+        container.classList.replace(`card--${this._color}`, `card--${target.value}`);
+        this._color = target.value;
       }
-    };
-    cardElement.querySelector(`.card__colors-inner`).addEventListener(`click`, colorBoxElementClickHandler);
+    });
   }
 
   getTemplate() {
