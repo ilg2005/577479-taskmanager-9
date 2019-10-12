@@ -47,4 +47,12 @@ export default class CardController extends Abstract {
     this._cardHashtags._changeHashtags(document.querySelector(`[data-card]`));
   }
 
+  _submitCard() {
+    // TODO
+  }
+
+  _discardChanges() {
+    // TODO
+  }
+
 }
