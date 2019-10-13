@@ -1,5 +1,6 @@
 import Abstract from "../abstract.js";
 import {utils} from "../utils";
+const striptags = require(`striptags`);
 
 export default class CardHashtags extends Abstract {
   constructor(task) {
@@ -16,40 +17,26 @@ export default class CardHashtags extends Abstract {
     const MIN_HASHTAG_LENGTH = 3;
     const MAX_HASHTAGS_NUMBER_PER_TASK = 5;
 
-    const checkTooLong = () => {
-      const hashtagChars = hashtag.split(``);
-      if (hashtagChars.length > MAX_HASHTAG_LENGTH) {
-        this._container.setCustomValidity(`Hashtag's maximum length should be 16 chars including #`);
+    const hashtagChars = hashtag.split(``);
+
+    const tooLong = hashtagChars.length > MAX_HASHTAG_LENGTH;
+    const tooShort = hashtagChars.length < MIN_HASHTAG_LENGTH;
+    const tooMuch = this._tagsNumber >= MAX_HASHTAGS_NUMBER_PER_TASK;
+    const doubleOccurrence = Array.from(this._task.tags).indexOf(hashtag) !== -1;
+
+    const validationRules = {
+      [tooLong]: `Hashtag's maximum length should be 16 chars including #`,
+      [tooShort]: `Hashtag's minimum length should be 3 chars including #`,
+      [tooMuch]: `No more than 5 hashtags per task`,
+      [doubleOccurrence]: `This tag already exists. Please, change it.`,
+    };
+
+    for (let [rule, description] of Object.entries(validationRules)) {
+      if (rule) {
+        this._container.setCustomValidity(`${description}`);
+        break;
       }
-    };
-
-    const checkTooShort = () => {
-      const hashtagChars = hashtag.split(``);
-      if (hashtagChars.length < MIN_HASHTAG_LENGTH) {
-        this._container.setCustomValidity(`Hashtag's minimum length should be 3 chars including #`);
-      }
-    };
-
-    const checkHashtagsNumberPerTask = () => {
-      if (this._tagsNumber >= MAX_HASHTAGS_NUMBER_PER_TASK) {
-        this._container.setCustomValidity(`No more than 5 hashtags per task`);
-      }
-    };
-
-    const checkDoubleOccurrence = () => {
-      if (Array.from(this._task.tags).indexOf(hashtag) !== -1) {
-        this._container.setCustomValidity(`This tag already exists. Please, change it.`);
-      }
-    };
-
-    const hashtagValidate = () => {
-      checkTooLong();
-      checkTooShort();
-      checkDoubleOccurrence();
-      checkHashtagsNumberPerTask();
-    };
-
-    hashtagValidate();
+    }
 
     return this._container.validity.valid;
   }
@@ -63,7 +50,6 @@ export default class CardHashtags extends Abstract {
     const hashtagsInputElementKeydownHandler = (evt) => {
       if (evt.key === `Space` || evt.keyCode === 32 || evt.key === `Enter` || evt.keyCode === 13) {
         evt.preventDefault();
-        const striptags = require(`striptags`);
         const hashtagInput = hashtagsInputElement.value;
         const strippedHashtag = striptags(hashtagInput).trim();
         if (this._validateHashtag(strippedHashtag)) {
