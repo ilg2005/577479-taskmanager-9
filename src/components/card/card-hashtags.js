@@ -22,7 +22,7 @@ export default class CardHashtags extends Abstract {
     const tooLong = hashtagChars.length > MAX_HASHTAG_LENGTH;
     const tooShort = hashtagChars.length < MIN_HASHTAG_LENGTH;
     const tooMuch = this._tagsNumber >= MAX_HASHTAGS_NUMBER_PER_TASK;
-    const doubleOccurrence = Array.from(this._task.tags).indexOf(hashtag) !== -1;
+    const doubleOccurrence = Array.from(this._task.tags).includes(hashtag);
 
     const validationRules = {
       [tooLong]: `Hashtag's maximum length should be 16 chars including #`,
@@ -32,7 +32,7 @@ export default class CardHashtags extends Abstract {
     };
 
     for (let [rule, description] of Object.entries(validationRules)) {
-      if (rule) {
+      if (rule === true) {
         this._container.setCustomValidity(`${description}`);
         break;
       }
@@ -54,6 +54,8 @@ export default class CardHashtags extends Abstract {
         const strippedHashtag = striptags(hashtagInput).trim();
         if (this._validateHashtag(strippedHashtag)) {
           this._tags.add(strippedHashtag);
+          const newTagsElement = new CardHashtags(this._task);
+          this.replace(newTagsElement);
 
           hashtagsInputElement.value = ``;
         }
