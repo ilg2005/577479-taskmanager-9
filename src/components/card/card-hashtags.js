@@ -32,9 +32,11 @@ export default class CardHashtags extends Abstract {
     };
 
     for (let [rule, description] of Object.entries(validationRules)) {
-      if (rule === true) {
+      if (rule) {
         this._container.setCustomValidity(`${description}`);
         break;
+      } else {
+        this._container.setCustomValidity(``);
       }
     }
 
@@ -59,8 +61,6 @@ export default class CardHashtags extends Abstract {
 
           hashtagsInputElement.value = ``;
         }
-      } else {
-        hashtagsInputElement.setCustomValidity(``);
       }
     };
 
