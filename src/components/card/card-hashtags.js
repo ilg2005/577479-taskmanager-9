@@ -3,12 +3,11 @@ import {utils} from "../utils";
 const striptags = require(`striptags`);
 
 export default class CardHashtags extends Abstract {
-  constructor(task) {
+  constructor(tags) {
     super();
-    this._task = task;
-    this._tags = task.tags;
+    this._tags = tags;
     this._container = this.getElement().querySelector(`input`);
-    this._tagsNumber = task.tags.size;
+    this._tagsNumber = tags.size;
     this._changeHashtags();
   }
 
@@ -22,7 +21,7 @@ export default class CardHashtags extends Abstract {
     const tooLong = hashtagChars.length > MAX_HASHTAG_LENGTH;
     const tooShort = hashtagChars.length < MIN_HASHTAG_LENGTH;
     const tooMuch = this._tagsNumber >= MAX_HASHTAGS_NUMBER_PER_TASK;
-    const doubleOccurrence = Array.from(this._task.tags).includes(hashtag);
+    const doubleOccurrence = Array.from(this._tags).includes(hashtag);
 
     const validationRules = {
       [tooLong]: `Hashtag's maximum length should be 16 chars including #`,
@@ -54,13 +53,13 @@ export default class CardHashtags extends Abstract {
         evt.preventDefault();
         const hashtagInput = hashtagsInputElement.value;
         const strippedHashtag = striptags(hashtagInput).trim();
-        if (this._validateHashtag(strippedHashtag)) {
+      //  if (this._validateHashtag(strippedHashtag)) {
           this._tags.add(strippedHashtag);
-          const newTagsElement = new CardHashtags(this._task);
+          const newTagsElement = new CardHashtags(this._tags);
           this.replace(newTagsElement);
 
           hashtagsInputElement.value = ``;
-        }
+    //    }
       }
     };
 
