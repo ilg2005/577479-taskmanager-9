@@ -18,24 +18,24 @@ export default class CardHashtags extends Abstract {
 
     const hashtagChars = hashtag.split(``);
 
-    const tooLong = hashtagChars.length > MAX_HASHTAG_LENGTH;
-    const tooShort = hashtagChars.length < MIN_HASHTAG_LENGTH;
-    const tooMuch = this._tagsNumber >= MAX_HASHTAGS_NUMBER_PER_TASK;
-    const doubleOccurrence = Array.from(this._tags).includes(hashtag);
-
-    const validationRules = {
-      [tooLong]: `Hashtag's maximum length should be 16 chars including #`,
-      [tooShort]: `Hashtag's minimum length should be 3 chars including #`,
-      [tooMuch]: `No more than 5 hashtags per task`,
-      [doubleOccurrence]: `This tag already exists. Please, change it.`,
+    const rules = {
+      tooLong: hashtagChars.length > MAX_HASHTAG_LENGTH,
+      tooShort: hashtagChars.length < MIN_HASHTAG_LENGTH,
+      tooMuch: this._tagsNumber >= MAX_HASHTAGS_NUMBER_PER_TASK,
+      doubleOccurrence: Array.from(this._tags).includes(hashtag),
     };
 
-    for (let [rule, description] of Object.entries(validationRules)) {
-      if (rule) {
-        this._container.setCustomValidity(`${description}`);
-        break;
-      } else {
-        this._container.setCustomValidity(``);
+    const descriptions = {
+      tooLong: `Hashtag's maximum length should be 16 chars including #`,
+      tooShort: `Hashtag's minimum length should be 3 chars including #`,
+      tooMuch: `No more than 5 hashtags per task`,
+      doubleOccurrence: `This tag already exists. Please, change it.`,
+    };
+
+    for (let [rule, value] of Object.entries(rules)) {
+      if (value) {
+        console.log(descriptions[rule]);
+        this._container.setCustomValidity(descriptions[rule]);
       }
     }
 
@@ -45,21 +45,20 @@ export default class CardHashtags extends Abstract {
 
   _changeHashtags() {
     const hashtagsElement = this.getElement();
-    // const hashtagsListElement = hashtagsElement.querySelector(`.card__hashtag-list`);
     const hashtagsInputElement = hashtagsElement.querySelector(`.card__hashtag-input`);
 
     const hashtagsInputElementKeydownHandler = (evt) => {
       if (evt.key === `Space` || evt.keyCode === 32 || evt.key === `Enter` || evt.keyCode === 13) {
         evt.preventDefault();
         const hashtagInput = hashtagsInputElement.value;
-        const strippedHashtag = striptags(hashtagInput).trim();
-      //  if (this._validateHashtag(strippedHashtag)) {
+        const strippedHashtag = striptags(hashtagInput).trim().replace(/^#+/, ``);
+        if (this._validateHashtag(strippedHashtag)) {
           this._tags.add(strippedHashtag);
           const newTagsElement = new CardHashtags(this._tags);
           this.replace(newTagsElement);
 
           hashtagsInputElement.value = ``;
-    //    }
+        }
       }
     };
 
@@ -67,7 +66,7 @@ export default class CardHashtags extends Abstract {
       if (evt.target.className === `card__hashtag-delete`) {
         const tagContainer = evt.target.closest(`.card__hashtag-inner`);
         const tag = tagContainer.querySelector(`.card__hashtag-name`).innerHTML;
-        const strippedTag = tag.trim().replace(/#/, ``);
+        const strippedTag = tag.trim().replace(/^#+/, ``);
         this._tags.delete(strippedTag);
         utils.unrender(tagContainer);
         hashtagsInputElement.setCustomValidity(``);
