@@ -59,6 +59,8 @@ export default class CardHashtags extends Abstract {
 
           hashtagsInputElement.value = ``;
         }
+      } else {
+        this._container.setCustomValidity(``);
       }
     };
 
