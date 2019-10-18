@@ -29,5 +29,13 @@ export const utils = {
       element.remove();
     }
   },
+
+  renderErrorMessage: (message, element) => {
+    const errorMessageElement = document.createElement(`div`);
+    errorMessageElement.classList.add(`error`);
+    errorMessageElement.textContent = `! ${message}`;
+    element.insertAdjacentElement(`afterend`, errorMessageElement);
+  },
+
 };
 

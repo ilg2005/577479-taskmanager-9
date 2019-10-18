@@ -34,16 +34,17 @@ export default class CardHashtags extends Abstract {
 
     for (let [rule, value] of Object.entries(rules)) {
       if (value) {
-        this._inputContainer.setCustomValidity(descriptions[rule]);
+        this._inputContainer.setCustomValidity(` `);
+        utils.renderErrorMessage(descriptions[rule], this._inputContainer);
         return false;
       }
     }
     return true;
   }
 
-
   _changeHashtags() {
     const hashtagsInputElementKeydownHandler = (evt) => {
+      utils.unrender(document.querySelector(`.error`));
       this._inputContainer.setCustomValidity(``);
       if (evt.key === `Space` || evt.keyCode === 32 || evt.key === `Enter` || evt.keyCode === 13) {
         evt.preventDefault();
@@ -63,8 +64,10 @@ export default class CardHashtags extends Abstract {
         const tag = tagContainer.querySelector(`.card__hashtag-name`).innerHTML;
         const strippedTag = tag.trim().replace(/^#+/, ``);
         this._tags.delete(strippedTag);
+        this._tagsNumber = this._tags.size;
         utils.unrender(tagContainer);
         this._inputContainer.setCustomValidity(``);
+        utils.unrender(document.querySelector(`.error`));
       }
     };
 
@@ -97,6 +100,7 @@ export default class CardHashtags extends Abstract {
                           class="card__hashtag-input"
                           name="hashtag-input"
                           placeholder="Type new hashtag here"
+                          autocomplete="off"
                         />
                       </label>
                     </div>`;
