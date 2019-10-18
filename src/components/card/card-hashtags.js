@@ -106,3 +106,4 @@ export default class CardHashtags extends Abstract {
                     </div>`;
   }
 }
+
