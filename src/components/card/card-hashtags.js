@@ -12,8 +12,8 @@ export default class CardHashtags extends Abstract {
   }
 
   _validateHashtag(hashtag) {
-    const MAX_HASHTAG_LENGTH = 16;
-    const MIN_HASHTAG_LENGTH = 3;
+    const MAX_HASHTAG_LENGTH = 15;
+    const MIN_HASHTAG_LENGTH = 2;
     const MAX_HASHTAGS_NUMBER_PER_TASK = 5;
 
     const hashtagChars = hashtag.split(``);
@@ -35,14 +35,16 @@ export default class CardHashtags extends Abstract {
     for (let [rule, value] of Object.entries(rules)) {
       if (value) {
         this._inputContainer.setCustomValidity(descriptions[rule]);
+        return false;
       }
     }
-    return this._inputContainer.validity.valid;
+    return true;
   }
 
 
   _changeHashtags() {
     const hashtagsInputElementKeydownHandler = (evt) => {
+      this._inputContainer.setCustomValidity(``);
       if (evt.key === `Space` || evt.keyCode === 32 || evt.key === `Enter` || evt.keyCode === 13) {
         evt.preventDefault();
         let hashtagInput = this._inputContainer.value;
@@ -52,8 +54,6 @@ export default class CardHashtags extends Abstract {
           const newTagsElement = new CardHashtags(this._tags);
           this.replace(newTagsElement);
         }
-      } else {
-        this._inputContainer.setCustomValidity(``);
       }
     };
 
