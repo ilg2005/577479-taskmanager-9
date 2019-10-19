@@ -1,9 +1,9 @@
 import Abstract from "../abstract";
 
 export default class CardTextarea extends Abstract {
-  constructor(task) {
+  constructor(description) {
     super();
-    this._description = task.description;
+    this._description = description;
   }
 
   getTemplate() {
