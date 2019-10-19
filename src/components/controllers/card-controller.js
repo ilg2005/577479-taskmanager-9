@@ -17,7 +17,7 @@ export default class CardController extends Abstract {
     this._cardColorBar = new CardColorBar();
     this._cardTextarea = new CardTextarea(task.description);
     this._cardSettings = new CardSettings();
-    this._cardDates = new CardDates(task);
+    this._cardDates = new CardDates(task.dueDate, task.repeatingDays);
     this._cardHashtags = new CardHashtags(task.tags);
     this._cardColors = new CardColors(task.color);
     this._cardBtns = new CardBtns();
