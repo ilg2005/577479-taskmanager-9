@@ -1,5 +1,5 @@
-import Abstract from "../abstract.js";
-import {utils} from "../utils.js";
+import Abstract from "../abstract";
+import {utils} from "../utils";
 import flatpickr from "flatpickr";
 
 export default class CardDates extends Abstract {
