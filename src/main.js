@@ -30,7 +30,7 @@ boardController.init();
 
 const addNewTask = (addElement) => {
   const addNewTaskElementClickListener = () => {
-    const newTaskDefault = new CardController(TASKS[2]);
+    const newTaskDefault = new CardController(TASKS[2], `edit`);
     newTaskDefault._renderCard(taskboardContainerElement);
 
   };

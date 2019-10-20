@@ -1,12 +1,13 @@
 import Abstract from "../abstract.js";
 
 export default class CardWrapper extends Abstract {
-  constructor(color, dueDate, repeatingDays, id) {
+  constructor(color, dueDate, repeatingDays, id, mode) {
     super();
     this._color = color;
     this._dueDate = dueDate;
     this._repeatingDays = repeatingDays;
     this._id = id;
+    this._mode = mode;
   }
 
   _checkRepeats() {
@@ -18,7 +19,7 @@ export default class CardWrapper extends Abstract {
   }
 
   getTemplate() {
-    return `<article class="card card--edit card--${this._color} ${this._checkRepeats()}  ${this._checkOverdue()}" data-card="${this._id}">
+    return `<article class="card card--${this._mode} card--${this._color} ${this._checkRepeats()}  ${this._checkOverdue()}" data-card="${this._id}">
                 <form class="card__form" method="get">
                 <div class="card__inner">
                     
