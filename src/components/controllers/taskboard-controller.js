@@ -4,6 +4,8 @@ import LoadMoreBtn from "../load-more-btn.js";
 import NoTasks from "../no-tasks.js";
 import Sort from "../sort.js";
 import TaskEditController from "./task-edit-controller.js";
+import CardController from "./card-controller";
+import {TASKS} from "../data";
 
 export default class TaskboardController {
   constructor(taskboardContainer, tasks) {
@@ -17,10 +19,14 @@ export default class TaskboardController {
   }
 
   _renderTasksPortion(tasksArray) {
-    const renderTask = (taskCard) => {
+    const renderTask = (task) => {
+      const newTask = new CardController(task);
+      newTask._renderCard(this._tasksContainer);
+/*
       const task = new Task(taskCard);
       utils.render(this._tasksContainer, task.getElement(), `beforeend`);
       task.getElement().id = taskCard.id;
+*/
     };
     const tasksArrayClone = tasksArray.slice();
     const tasksToRender = tasksArrayClone.splice(0, this.TASKS_TO_SHOW);

@@ -1,10 +1,11 @@
 import Abstract from "../abstract";
 
 export default class CardControl extends Abstract {
-  constructor(isArchive, isFavorite) {
+  constructor(isArchive, isFavorite, mode) {
     super();
     this._isArchive = isArchive;
     this._isFavorite = isFavorite;
+    this._mode = mode;
     this._toggleArchived();
     this._toggleFavorites();
   }
@@ -29,6 +30,10 @@ export default class CardControl extends Abstract {
 
   getTemplate() {
     return `<div class="card__control">
+${this._mode !== `edit` ?
+    `<button type="button" class="card__btn card__btn--edit">
+                    edit
+                  </button>` : ``}
                   <button type="button" class="card__btn card__btn--archive ${this._isArchive ? `` : `card__btn--disabled`}">
                     archive
                   </button>

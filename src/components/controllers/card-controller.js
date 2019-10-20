@@ -13,7 +13,7 @@ export default class CardController extends Abstract {
   constructor(task, mode = ``) {
     super();
     this._cardWrapper = new CardWrapper(task.color, task.dueDate, task.repeatingDays, task.id, mode);
-    this._cardControl = new CardControl(task.isArchive, task.isFavorite);
+    this._cardControl = new CardControl(task.isArchive, task.isFavorite, mode);
     this._cardColorBar = new CardColorBar();
     this._cardTextarea = new CardTextarea(task.description);
     this._cardSettings = new CardSettings();
