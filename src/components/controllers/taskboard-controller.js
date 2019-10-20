@@ -1,8 +1,8 @@
-import {utils} from "../utils.js";
+import {utils} from "../utils";
 import Task from "../task.js";
-import LoadMoreBtn from "../load-more-btn.js";
-import NoTasks from "../no-tasks.js";
-import Sort from "../sort.js";
+import LoadMoreBtn from "../load-more-btn";
+import NoTasks from "../no-tasks";
+import Sort from "../sort";
 import TaskEditController from "./task-edit-controller.js";
 import CardController from "./card-controller";
 import {TASKS} from "../data";
@@ -90,8 +90,8 @@ export default class TaskboardController {
         loadMoreBtnElement.addEventListener(`click`, loadMoreBtnElementClickHandler);
       }
       this._implementSorting();
-      const taskEditController = new TaskEditController(this._taskboardContainer);
-      taskEditController._init();
+     /* const taskEditController = new TaskEditController(this._taskboardContainer);
+      taskEditController._init();*/
     }
   }
 }
