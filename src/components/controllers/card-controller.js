@@ -12,7 +12,7 @@ import CardBtns from "../card/card-btns";
 export default class CardController extends Abstract {
   constructor(task) {
     super();
-    this._cardWrapper = new CardWrapper(task.color, task.id);
+    this._cardWrapper = new CardWrapper(task.color, task.dueDate, task.repeatingDays, task.id);
     this._cardControl = new CardControl(task.isArchive, task.isFavorite);
     this._cardColorBar = new CardColorBar();
     this._cardTextarea = new CardTextarea(task.description);
