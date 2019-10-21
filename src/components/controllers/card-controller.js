@@ -41,18 +41,4 @@ export default class CardController extends Abstract {
 
     this._cardWrapper.render(container, `afterbegin`);
   }
-
-  _changeCard() {
-    //   this._cardColors._changeColor(document.querySelector(`[data-card]`));
-    //   this._cardHashtags._changeHashtags(document.querySelector(`[data-card]`));
-  }
-
-  _submitCard() {
-    // TODO
-  }
-
-  _discardChanges() {
-    // TODO
-  }
-
 }
