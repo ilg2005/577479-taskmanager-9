@@ -1,5 +1,5 @@
-import Abstract from "../abstract.js";
-import {utils} from "../utils.js";
+import Abstract from "../../abstract.js";
+import {utils} from "../../utils.js";
 
 export default class CardColors extends Abstract {
   constructor(color) {

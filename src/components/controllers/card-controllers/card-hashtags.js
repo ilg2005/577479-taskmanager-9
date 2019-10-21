@@ -1,5 +1,5 @@
-import Abstract from "../abstract.js";
-import {utils} from "../utils";
+import Abstract from "../../abstract.js";
+import {utils} from "../../utils";
 const striptags = require(`striptags`);
 
 export default class CardHashtags extends Abstract {
