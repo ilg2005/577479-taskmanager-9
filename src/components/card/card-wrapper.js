@@ -1,4 +1,4 @@
-import Abstract from "../../abstract.js";
+import Abstract from "../abstract.js";
 
 export default class CardWrapper extends Abstract {
   constructor(color, dueDate, repeatingDays, id, mode) {

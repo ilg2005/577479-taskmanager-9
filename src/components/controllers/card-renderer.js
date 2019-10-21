@@ -1,13 +1,13 @@
 import Abstract from "../abstract";
-import CardWrapper from "./card-controllers/card-wrapper";
-import CardControl from "./card-controllers/card-control";
-import CardColorBar from "./card-controllers/card-color-bar";
-import CardTextarea from "./card-controllers/card-textarea";
-import CardSettings from "./card-controllers/card-settings";
-import CardDates from "./card-controllers/card-dates";
-import CardHashtags from "./card-controllers/card-hashtags";
-import CardColors from "./card-controllers/card-colors";
-import CardBtns from "./card-controllers/card-btns";
+import CardWrapper from "../card/card-wrapper";
+import CardControl from "../card/card-control";
+import CardColorBar from "../card/card-color-bar";
+import CardTextarea from "../card/card-textarea";
+import CardSettings from "../card/card-settings";
+import CardDates from "../card/card-dates";
+import CardHashtags from "../card/card-hashtags";
+import CardColors from "../card/card-colors";
+import CardBtns from "../card/card-btns";
 
 export default class CardRenderer extends Abstract {
   constructor(task, mode = ``) {

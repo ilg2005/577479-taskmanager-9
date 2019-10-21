@@ -1,4 +1,4 @@
-import Abstract from "../../abstract";
+import Abstract from "../abstract";
 
 export default class CardColorBar extends Abstract {
   getTemplate() {
